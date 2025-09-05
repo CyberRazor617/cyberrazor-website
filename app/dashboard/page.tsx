@@ -137,35 +137,36 @@ const DashboardPage = () => {
   const trialStatus = getTrialStatus();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 p-3 sm:p-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-3">
-            <Shield className="h-8 w-8 text-blue-400" />
-            <h1 className="text-2xl font-bold text-white">CyberRazor Dashboard</h1>
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-blue-400" />
+            <h1 className="text-lg sm:text-2xl font-bold text-white">CyberRazor Dashboard</h1>
           </div>
-          <Button onClick={handleLogout} variant="outline" size="sm">
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
+          <Button onClick={handleLogout} variant="outline" size="sm" className="text-xs sm:text-sm">
+            <LogOut className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Logout</span>
+            <span className="sm:hidden">Out</span>
           </Button>
         </div>
 
         {/* Welcome Section */}
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-6">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-semibold text-white mb-1">
+        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-4 sm:mb-6">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-3 sm:space-y-0">
+              <div className="flex-1">
+                <h2 className="text-lg sm:text-xl font-semibold text-white mb-1">
                   Welcome back, {user?.username}!
                 </h2>
-                <p className="text-gray-300">
+                <p className="text-gray-300 text-sm sm:text-base">
                   Your digital assets are protected with enterprise-grade security
                 </p>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 {getSubscriptionBadge()}
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
+                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs sm:text-sm">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   Active
                 </Badge>
@@ -176,7 +177,7 @@ const DashboardPage = () => {
 
         {/* Trial Status Alert */}
         {trialStatus && (
-          <Alert className={`mb-6 ${
+          <Alert className={`mb-4 sm:mb-6 ${
             trialStatus.status === 'expired' 
               ? 'bg-red-500/20 border-red-500/30' 
               : trialStatus.status === 'expiring'
@@ -184,7 +185,7 @@ const DashboardPage = () => {
               : 'bg-blue-500/20 border-blue-500/30'
           }`}>
             <Clock className="h-4 w-4" />
-            <AlertDescription className="text-white">
+            <AlertDescription className="text-white text-sm sm:text-base">
               {trialStatus.status === 'expired' && (
                 'Your trial has expired. Your account has been automatically transitioned to the Free tier.'
               )}
@@ -199,91 +200,91 @@ const DashboardPage = () => {
         )}
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Account Status</p>
-                  <p className="text-2xl font-bold text-white capitalize">{user?.status}</p>
+                  <p className="text-xs sm:text-sm text-gray-400">Account Status</p>
+                  <p className="text-lg sm:text-2xl font-bold text-white capitalize">{user?.status}</p>
                 </div>
-                <User className="h-8 w-8 text-blue-500" />
+                <User className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Subscription Plan</p>
-                  <p className="text-2xl font-bold text-white capitalize">{user?.subscription_plan}</p>
+                  <p className="text-xs sm:text-sm text-gray-400">Subscription Plan</p>
+                  <p className="text-lg sm:text-2xl font-bold text-white capitalize">{user?.subscription_plan}</p>
                 </div>
-                <Zap className="h-8 w-8 text-purple-500" />
+                <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Security Status</p>
-                  <p className="text-2xl font-bold text-green-400">Protected</p>
+                  <p className="text-xs sm:text-sm text-gray-400">Security Status</p>
+                  <p className="text-lg sm:text-2xl font-bold text-green-400">Protected</p>
                 </div>
-                <Lock className="h-8 w-8 text-green-500" />
+                <Lock className="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Member Since</p>
-                  <p className="text-2xl font-bold text-white">
+                  <p className="text-xs sm:text-sm text-gray-400">Member Since</p>
+                  <p className="text-lg sm:text-2xl font-bold text-white">
                     {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
                   </p>
                 </div>
-                <Calendar className="h-8 w-8 text-orange-500" />
+                <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-orange-500" />
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Account Information */}
           <Card className="bg-white/10 backdrop-blur-lg border-white/20">
             <CardHeader>
-              <CardTitle className="text-white">Account Information</CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardTitle className="text-white text-lg sm:text-xl">Account Information</CardTitle>
+              <CardDescription className="text-gray-300 text-sm sm:text-base">
                 Your account details and subscription information
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3 sm:space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Username:</span>
-                <span className="text-white font-medium">{user?.username}</span>
+                <span className="text-gray-300 text-sm sm:text-base">Username:</span>
+                <span className="text-white font-medium text-sm sm:text-base">{user?.username}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Email:</span>
-                <span className="text-white font-medium">{user?.email}</span>
+                <span className="text-gray-300 text-sm sm:text-base">Email:</span>
+                <span className="text-white font-medium text-sm sm:text-base">{user?.email}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Account Status:</span>
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
+                <span className="text-gray-300 text-sm sm:text-base">Account Status:</span>
+                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs sm:text-sm">
                   {user?.status}
                 </Badge>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Subscription Plan:</span>
+                <span className="text-gray-300 text-sm sm:text-base">Subscription Plan:</span>
                 {getSubscriptionBadge()}
               </div>
               {user?.trial_end_date && (
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-300">Trial Ends:</span>
-                  <span className="text-white font-medium">
+                  <span className="text-gray-300 text-sm sm:text-base">Trial Ends:</span>
+                  <span className="text-white font-medium text-sm sm:text-base">
                     {new Date(user.trial_end_date).toLocaleDateString()}
                   </span>
                 </div>
@@ -294,42 +295,42 @@ const DashboardPage = () => {
           {/* Security Overview */}
           <Card className="bg-white/10 backdrop-blur-lg border-white/20">
             <CardHeader>
-              <CardTitle className="text-white">Security Overview</CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardTitle className="text-white text-lg sm:text-xl">Security Overview</CardTitle>
+              <CardDescription className="text-gray-300 text-sm sm:text-base">
                 Real-time protection status and security metrics
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="h-5 w-5 text-green-400" />
-                  <span className="text-white">Real-time Protection</span>
+            <CardContent className="space-y-3 sm:space-y-4">
+              <div className="flex items-center justify-between p-2 sm:p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-400" />
+                  <span className="text-white text-sm sm:text-base">Real-time Protection</span>
                 </div>
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Active</Badge>
+                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs sm:text-sm">Active</Badge>
               </div>
               
-              <div className="flex items-center justify-between p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <Activity className="h-5 w-5 text-blue-400" />
-                  <span className="text-white">Threat Monitoring</span>
+              <div className="flex items-center justify-between p-2 sm:p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Activity className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
+                  <span className="text-white text-sm sm:text-base">Threat Monitoring</span>
                 </div>
-                <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">24/7</Badge>
+                <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs sm:text-sm">24/7</Badge>
               </div>
               
-              <div className="flex items-center justify-between p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <Shield className="h-5 w-5 text-purple-400" />
-                  <span className="text-white">AI Analysis</span>
+              <div className="flex items-center justify-between p-2 sm:p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-purple-400" />
+                  <span className="text-white text-sm sm:text-base">AI Analysis</span>
                 </div>
-                <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30">Enabled</Badge>
+                <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 text-xs sm:text-sm">Enabled</Badge>
               </div>
               
-              <div className="flex items-center justify-between p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <Zap className="h-5 w-5 text-orange-400" />
-                  <span className="text-white">System Health</span>
+              <div className="flex items-center justify-between p-2 sm:p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400" />
+                  <span className="text-white text-sm sm:text-base">System Health</span>
                 </div>
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Optimal</Badge>
+                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs sm:text-sm">Optimal</Badge>
               </div>
             </CardContent>
           </Card>
@@ -337,15 +338,15 @@ const DashboardPage = () => {
 
         {/* Call to Action */}
         {trialStatus?.status === 'expiring' && (
-          <Card className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 border-purple-500/30 mt-6">
-            <CardContent className="p-6 text-center">
-              <h3 className="text-xl font-semibold text-white mb-2">
+          <Card className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 border-purple-500/30 mt-4 sm:mt-6">
+            <CardContent className="p-4 sm:p-6 text-center">
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">
                 Upgrade to Pro for Enhanced Protection
               </h3>
-              <p className="text-gray-300 mb-4">
+              <p className="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base">
                 Get advanced threat detection, priority support, and unlimited scans
               </p>
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+              <Button className="bg-purple-600 hover:bg-purple-700 text-white text-sm sm:text-base">
                 Upgrade Now
               </Button>
             </CardContent>

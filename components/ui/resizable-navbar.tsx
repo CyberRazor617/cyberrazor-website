@@ -103,7 +103,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: visible ? "600px" : "800px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-6 py-4 lg:flex dark:bg-transparent",
+        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 sm:px-6 py-3 sm:py-4 lg:flex dark:bg-transparent",
         visible && "bg-white/80 dark:bg-neutral-950/80",
         className,
       )}
@@ -172,7 +172,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-4 lg:hidden",
+        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-0.5rem)] sm:max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-1 sm:px-0 py-3 sm:py-4 lg:hidden",
         visible && "bg-white/80 dark:bg-neutral-950/80",
         className,
       )}
@@ -254,18 +254,18 @@ export const MobileNavMenu = ({
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className={cn(
-              "fixed inset-x-0 top-20 z-[100] flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white/95 backdrop-blur-xl px-4 py-8 mx-4 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950/95",
+              "fixed inset-x-0 top-16 sm:top-20 z-[100] flex w-full flex-col items-start justify-start gap-3 sm:gap-4 rounded-lg bg-white/95 backdrop-blur-xl px-2 sm:px-4 py-6 sm:py-8 mx-1 sm:mx-4 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950/95",
               className,
             )}
           >
             {/* Close button */}
-            <div className="flex w-full justify-end mb-2">
+            <div className="flex w-full justify-end mb-1 sm:mb-2">
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg hover:bg-gray-200/20 dark:hover:bg-gray-700/20 transition-colors"
+                className="p-1.5 sm:p-2 rounded-lg hover:bg-gray-200/20 dark:hover:bg-gray-700/20 transition-colors"
                 aria-label="Close menu"
               >
-                <IconX className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+                <IconX className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 dark:text-gray-300" />
               </button>
             </div>
             {children}
@@ -294,19 +294,19 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
   return (
     <a
       href="#"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black dark:text-white"
+      className="relative z-20 mr-2 sm:mr-4 flex items-center space-x-1 sm:space-x-2 px-1 sm:px-2 py-1 text-sm font-normal text-black dark:text-white"
     >
       <motion.img
         src="/logo.jpg"
         alt="CYBERRAZOR Logo"
         className="rounded-lg"
         initial={{
-          width: 80,
-          height: 64,
+          width: 60,
+          height: 48,
         }}
         animate={{
-          width: visible ? 48 : 80,
-          height: visible ? 38 : 64,
+          width: visible ? 40 : 60,
+          height: visible ? 32 : 48,
         }}
         transition={{
           type: "spring",
@@ -314,8 +314,8 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
           damping: 50,
         }}
         style={{
-          width: visible ? 48 : 80,
-          height: visible ? 38 : 64,
+          width: visible ? 40 : 60,
+          height: visible ? 32 : 48,
         }}
       />
     </a>

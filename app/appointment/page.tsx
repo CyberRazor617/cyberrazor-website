@@ -144,48 +144,49 @@ export default function AppointmentPage() {
       />
       {/* Header */}
       <header className="relative z-10 border-b border-white/10 backdrop-blur-xl bg-black/20">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <Image
                 src="/logo.jpg"
                 alt="CYBERRAZOR Logo"
-                width={32}
-                height={32}
-                className="rounded-lg"
+                width={28}
+                height={28}
+                className="rounded-lg sm:w-8 sm:h-8"
               />
             </div>
             <Link
               href="/"
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all duration-200 backdrop-blur-sm"
+              className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all duration-200 backdrop-blur-sm"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
+              <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Back to Home</span>
+              <span className="sm:hidden">Back</span>
             </Link>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-8 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-4xl">
         {/* Progress Steps */}
-        <div className="mb-8">
-          <div className="flex items-center justify-center space-x-4">
+        <div className="mb-6 sm:mb-8">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-4">
             {[1, 2, 3, 4].map((step) => (
               <div key={step} className="flex items-center">
                 <div
                   className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300",
+                    "w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold transition-all duration-300",
                     currentStep >= step
                       ? "bg-blue-500 text-white"
                       : "bg-gray-700 text-gray-400"
                   )}
                 >
-                  {currentStep > step ? <CheckCircle className="w-5 h-5" /> : step}
+                  {currentStep > step ? <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" /> : step}
                 </div>
                 {step < 4 && (
                   <div
                     className={cn(
-                      "w-16 h-0.5 mx-2 transition-all duration-300",
+                      "w-8 sm:w-16 h-0.5 mx-1 sm:mx-2 transition-all duration-300",
                       currentStep > step ? "bg-blue-500" : "bg-gray-700"
                     )}
                   />
@@ -193,17 +194,17 @@ export default function AppointmentPage() {
               </div>
             ))}
           </div>
-          <div className="flex justify-center mt-4 space-x-16">
-            <span className={cn("text-sm", currentStep >= 1 ? "text-blue-400" : "text-gray-500")}>
+          <div className="flex justify-center mt-3 sm:mt-4 space-x-8 sm:space-x-16">
+            <span className={cn("text-xs sm:text-sm", currentStep >= 1 ? "text-blue-400" : "text-gray-500")}>
               Contact Info
             </span>
-            <span className={cn("text-sm", currentStep >= 2 ? "text-blue-400" : "text-gray-500")}>
+            <span className={cn("text-xs sm:text-sm", currentStep >= 2 ? "text-blue-400" : "text-gray-500")}>
               Select Date
             </span>
-            <span className={cn("text-sm", currentStep >= 3 ? "text-blue-400" : "text-gray-500")}>
+            <span className={cn("text-xs sm:text-sm", currentStep >= 3 ? "text-blue-400" : "text-gray-500")}>
               Select Time
             </span>
-            <span className={cn("text-sm", currentStep >= 4 ? "text-blue-400" : "text-gray-500")}>
+            <span className={cn("text-xs sm:text-sm", currentStep >= 4 ? "text-blue-400" : "text-gray-500")}>
               Confirmation
             </span>
           </div>

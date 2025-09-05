@@ -675,12 +675,12 @@ export default function CyberRazorLanding() {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300"
+                className="relative text-neutral-600 dark:text-neutral-300 text-base sm:text-lg py-2 sm:py-3 px-2 sm:px-4 rounded-lg hover:bg-gray-100/10 dark:hover:bg-gray-800/10 transition-colors"
               >
                 <span className="block">{item.name}</span>
               </a>
             ))}
-            <div className="flex w-full justify-center">
+            <div className="flex w-full justify-center mt-2 sm:mt-4">
               <div className="relative group">
                 <Button
                   onClick={() => {
@@ -689,11 +689,11 @@ export default function CyberRazorLanding() {
                   }}
                   variant="secondary"
                   size="icon"
-                  className="size-8"
+                  className="size-7 sm:size-8"
                 >
-                  <ChevronRightIcon className="h-5 w-5" />
+                  <ChevronRightIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                <div className="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
                   Let's Secure
                 </div>
               </div>
@@ -703,16 +703,16 @@ export default function CyberRazorLanding() {
       </Navbar>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 pb-20">
+      <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 pb-16 sm:pt-20 sm:pb-20">
         <GridBackgroundDemo className="absolute inset-0">
           <div className="relative z-20 container mx-auto px-4 text-center flex-1 flex flex-col justify-center">
-            <div className="max-w-6xl mx-auto space-y-8">
+            <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
               <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-6 animate-pulse">
                 🔒 Next-Gen Cyber Defense
               </Badge>
 
-              <div className="space-y-6">
-                <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-black leading-tight font-orbitron">
+              <div className="space-y-4 sm:space-y-6">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight font-orbitron">
                   <div className="bg-gradient-to-b from-white via-blue-200 to-blue-400 bg-clip-text text-transparent">
                     <DecryptedText
                       text="CYBERRAZOR"
@@ -738,7 +738,7 @@ export default function CyberRazorLanding() {
                 </div>
               </div>
 
-              <div className="text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed font-orbitron font-light mt-8">
+              <div className="text-base sm:text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed font-orbitron font-light mt-8 px-4">
                 <DecryptedText
                   text="AI-powered threat detection and real-time cyber defense"
                   speed={15}
@@ -748,10 +748,10 @@ export default function CyberRazorLanding() {
                 />
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-8 justify-center items-center mt-16 mb-20">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-8 justify-center items-center mt-12 sm:mt-16 mb-16 sm:mb-20 px-4">
                 <GlowingButton
                   size="lg"
-                  className="text-lg px-10 py-6 group font-orbitron font-bold tracking-wide"
+                  className="text-sm sm:text-lg px-4 sm:px-10 py-3 sm:py-6 group font-orbitron font-bold tracking-wide w-full sm:w-auto"
                   onClick={() => scrollToSection("contact")}
                 >
                   <DecryptedText text="DEPLOY DEFENSE" characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" />
@@ -759,14 +759,14 @@ export default function CyberRazorLanding() {
                 <GlowingButton
                   size="lg"
                   variant="secondary"
-                  className="text-lg px-10 py-6 font-orbitron font-bold tracking-wide"
+                  className="text-sm sm:text-lg px-4 sm:px-10 py-3 sm:py-6 font-orbitron font-bold tracking-wide w-full sm:w-auto"
                   onClick={() => scrollToSection("services")}
                 >
                   <DecryptedText text="EXPLORE ARSENAL" characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" />
                 </GlowingButton>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 md:gap-8 mt-6 sm:mt-16 px-4">
                 {[
                   {
                     icon: ShieldCheck,
@@ -785,14 +785,15 @@ export default function CyberRazorLanding() {
                     label: "< 2MIN RESPONSE",
                     desc: "Lightning-fast incident response",
                     color: "text-yellow-400",
+                    hideOnMobile: true,
                   },
                 ].map((stat, index) => (
-                  <FloatingCard key={index} className="p-6 text-center bg-slate-900/30">
-                    <stat.icon className={cn("h-10 w-10 mx-auto mb-3", stat.color)} />
-                    <div className="text-2xl font-bold text-white mb-1 font-orbitron">
+                  <FloatingCard key={index} className={cn("p-4 sm:p-6 text-center bg-slate-900/30", stat.hideOnMobile && "hidden md:block")}>
+                    <stat.icon className={cn("h-8 w-8 sm:h-10 sm:w-10 mx-auto mb-2 sm:mb-3", stat.color)} />
+                    <div className="text-lg sm:text-2xl font-bold text-white mb-1 font-orbitron">
                       <DecryptedText text={stat.label} characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>%/" />
                     </div>
-                    <div className="text-slate-400 font-orbitron font-light">{stat.desc}</div>
+                    <div className="text-slate-400 font-orbitron font-light text-sm sm:text-base">{stat.desc}</div>
                   </FloatingCard>
                 ))}
               </div>
@@ -802,18 +803,18 @@ export default function CyberRazorLanding() {
       </section>
 
       {/* Developer Tools Section */}
-      <section className="py-20 bg-gradient-to-b from-slate-900/50 to-black">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-900/50 to-black">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
               <DecryptedText text="Developer Arsenal" animateOn="view" />
             </h2>
-            <p className="text-xl text-slate-300 max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4">
               Integrate CYBERRAZOR's powerful cybersecurity tools directly into your development workflow with our open-source modules and extensions.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {/* Python Module */}
             <FloatingCard className="group overflow-hidden">
               <CardHeader className="relative">
@@ -921,18 +922,18 @@ export default function CyberRazorLanding() {
 
       {/* About Us Section */}
       <section id="about" className="py-20 bg-gradient-to-b from-slate-900/50 to-black">
-        <div className="container mx-auto px-4 md:px-8 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent px-4">
               <DecryptedText text="Elite Cyber Warriors" animateOn="view" />
             </h2>
-            <p className="text-xl text-slate-300 max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4">
               Our certified cybersecurity specialists combine decades of experience in advanced persistent threat
               hunting, digital forensics, and next-generation defense strategies.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {[
               {
                 name: "Hiba Sharif",
@@ -989,18 +990,18 @@ export default function CyberRazorLanding() {
       {/* Services Section */}
       <section id="services" className="py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-cyan-900/10" />
-        <div className="container mx-auto px-4 relative">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent px-4">
               <DecryptedText text="Cyber Arsenal" animateOn="view" />
             </h2>
-            <p className="text-xl text-slate-300 max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4">
               Comprehensive cybersecurity solutions powered by AI, machine learning, and advanced threat intelligence to
               protect your digital infrastructure.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-8 lg:px-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 icon: Activity,
@@ -1100,18 +1101,18 @@ export default function CyberRazorLanding() {
 
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-gradient-to-b from-slate-900/50 to-black">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent px-4">
               <DecryptedText text="Defense Packages" animateOn="view" />
             </h2>
-            <p className="text-xl text-slate-300 max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4">
               Choose your cybersecurity solution. From free basic scanning to enterprise-grade AI-powered security, 
               we have the perfect package for your needs.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
             {[
               {
                 name: "Free Tier",
@@ -1220,47 +1221,47 @@ export default function CyberRazorLanding() {
 
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-black">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 max-w-6xl mx-auto">
             {/* Left Column - Introduction and Social Media */}
             <div className="space-y-8">
               <div>
                 <p className="text-sm text-gray-400 mb-2">Contact Section</p>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
                   Get in touch
                 </h2>
-                <p className="text-gray-300 text-lg leading-relaxed">
+                <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
                   Write one or two welcoming sentences that encourage contact. Include your response time commitment and highlight your team's readiness to help.
                 </p>
               </div>
               
               {/* Social Media Icons */}
-              <div className="flex space-x-6">
-                <a href="#" className="text-white hover:text-gray-300 transition-colors">
+              <div className="flex flex-wrap gap-4 sm:gap-6">
+                <a href="https://www.instagram.com/cyber_razor123?igsh=N25mZ2p3c211bHpz" target="_blank" rel="noopener noreferrer" className="text-white hover:text-pink-400 transition-colors" aria-label="Instagram">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+                <a href="https://www.facebook.com/share/1ABCuCb6vV/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-400 transition-colors" aria-label="Facebook">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                   </svg>
                 </a>
-                <a href="#" className="text-white hover:text-gray-300 transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
-                  </svg>
-                </a>
-                <a href="#" className="text-white hover:text-gray-300 transition-colors">
+                <a href="https://github.com/CyberRazor617" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400 transition-colors" aria-label="GitHub">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                   </svg>
                 </a>
-                <a href="#" className="text-white hover:text-gray-300 transition-colors">
+                <a href="https://www.linkedin.com/company/cyberrazor/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-600 transition-colors" aria-label="LinkedIn">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.83 1.466 2.98 3.09 3.343 3.586 2.829-4.048 2.622-7.119 2.622-7.119.268-.422.84-.958.84-.958s-1.794-.05-3.9 1.478c-1.105-2.88-2.73-4.08-4.95-4.32-2.52-.3-4.846.422-6.337 1.8-1.491 1.378-2.43 3.24-2.43 5.4 0 1.174.315 2.16.315 2.16s2.7-.28 5.827-2.547c3.127-2.267 5.827-5.4 5.827-5.4s-1.794 1.174-3.9 1.478c-2.106.304-4.95-.15-6.337-1.8-1.387-1.65-2.43-3.24-2.43-5.4 0-2.16 1.174-4.32 3.9-5.827 2.726-1.507 5.827-1.478 5.827-1.478s.84.536 1.174.958c0 0 .201 3.07 2.622 7.119.363-.496 1.513-2.12 3.343-3.586-3.214-.515-6.034.328-6.384.438-.35.11-.715.2-.715.2s.365-.09.715-.2z"/>
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                   </svg>
                 </a>
               </div>
             </div>
 
             {/* Right Column - Contact Methods Card */}
-            <div className="bg-gray-800 rounded-lg p-8">
+            <div className="bg-gray-800 rounded-lg p-6 sm:p-8">
               <div className="space-y-8">
                 {/* Call us */}
                 <div className="flex items-start space-x-4">
@@ -1313,31 +1314,28 @@ export default function CyberRazorLanding() {
           />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             <div className="space-y-4">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
                   <Image
                     src="/logo.jpg"
                     alt="CYBERRAZOR Logo"
-                    width={40}
-                    height={24}
-                    className="rounded-lg"
+                    width={16}
+                    height={10}
+                    className="rounded-lg sm:w-5 sm:h-3"
                     style={{ width: "auto", height: "auto" }}
                   />
                 </div>
-                <span className="text-lg font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent font-orbitron">
-                  <DecryptedText text="CYBERRAZOR" characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" />
-                </span>
               </div>
-              <p className="text-slate-400 text-lg font-orbitron font-light">
+              <p className="text-slate-400 text-sm sm:text-lg font-orbitron font-light">
                 AI-powered threat detection and real-time cyber defense
               </p>
             </div>
             <div>
-              <h4 className="text-xl font-semibold text-white mb-6 font-orbitron">Defense Arsenal</h4>
-              <ul className="space-y-3 text-slate-400 font-orbitron font-light">
+              <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Defense Arsenal</h4>
+              <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
                 <li>
                   <Link href="#" className="hover:text-blue-400 transition-colors">
                     AI-Powered SOC
@@ -1361,8 +1359,8 @@ export default function CyberRazorLanding() {
               </ul>
             </div>
             <div>
-              <h4 className="text-xl font-semibold text-white mb-6 font-orbitron">Command</h4>
-              <ul className="space-y-3 text-slate-400 font-orbitron font-light">
+              <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Command</h4>
+              <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
                 <li>
                   <Link href="#" className="hover:text-blue-400 transition-colors">
                     About Team
@@ -1386,8 +1384,8 @@ export default function CyberRazorLanding() {
               </ul>
             </div>
             <div>
-              <h4 className="text-xl font-semibold text-white mb-6 font-orbitron">Security</h4>
-              <ul className="space-y-3 text-slate-400 font-orbitron font-light">
+              <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Security</h4>
+              <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
                 <li>
                   <Link href="#" className="hover:text-blue-400 transition-colors">
                     Privacy Shield
@@ -1411,8 +1409,8 @@ export default function CyberRazorLanding() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-blue-500/20 mt-12 pt-8 text-center">
-            <p className="text-slate-400 text-sm font-orbitron font-light">
+          <div className="border-t border-blue-500/20 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center">
+            <p className="text-slate-400 text-xs sm:text-sm font-orbitron font-light">
               &copy; {new Date().getFullYear()} CYBERRAZOR. All rights reserved.
             </p>
           </div>

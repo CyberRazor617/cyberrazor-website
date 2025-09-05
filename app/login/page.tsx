@@ -104,41 +104,42 @@ export default function LoginPage() {
 
       {/* Header */}
       <header className="relative z-10 border-b border-white/10 backdrop-blur-xl bg-black/20">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <Image
                 src="/logo.jpg"
                 alt="CYBERRAZOR Logo"
-                width={32}
-                height={32}
-                className="rounded-lg"
+                width={28}
+                height={28}
+                className="rounded-lg sm:w-8 sm:h-8"
               />
             </div>
             <Link
               href="/"
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all duration-200 backdrop-blur-sm"
+              className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all duration-200 backdrop-blur-sm"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
+              <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Back to Home</span>
+              <span className="sm:hidden">Back</span>
             </Link>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-120px)] px-4">
+      <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-100px)] sm:min-h-[calc(100vh-120px)] px-4 py-6 sm:py-0">
         <Card className="w-full max-w-md backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl">
-          <CardHeader className="text-center space-y-3">
-            <CardTitle className="text-xl font-bold text-white">
+          <CardHeader className="text-center space-y-2 sm:space-y-3">
+            <CardTitle className="text-lg sm:text-xl font-bold text-white">
               Welcome Back
             </CardTitle>
-            <CardDescription className="text-slate-300">
+            <CardDescription className="text-slate-300 text-sm sm:text-base">
               Access your CYBERRAZOR dashboard
             </CardDescription>
             <div className="mt-2">
               <Link href="/signup">
-                <Button variant="link" className="text-blue-400 hover:text-blue-300">
+                <Button variant="link" className="text-blue-400 hover:text-blue-300 text-xs sm:text-sm">
                   Don't have an account? Sign up
                 </Button>
               </Link>
@@ -147,14 +148,14 @@ export default function LoginPage() {
 
           <CardContent>
             {error && (
-              <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg">
-                <p className="text-red-400 text-sm text-center">{error}</p>
+              <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-red-500/20 border border-red-500/30 rounded-lg">
+                <p className="text-red-400 text-xs sm:text-sm text-center">{error}</p>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-300">
+                <Label htmlFor="email" className="text-slate-300 text-sm sm:text-base">
                   Email Address
                 </Label>
                 <Input
@@ -166,18 +167,18 @@ export default function LoginPage() {
                   onChange={handleInputChange}
                   placeholder="Enter your email"
                   required
-                  className="bg-slate-800/50 border-blue-500/30 text-white placeholder:text-slate-400 focus:border-blue-400 focus:ring-blue-400 backdrop-blur-sm"
+                  className="bg-slate-800/50 border-blue-500/30 text-white placeholder:text-slate-400 focus:border-blue-400 focus:ring-blue-400 backdrop-blur-sm text-sm sm:text-base"
                 />
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-slate-300">
+                  <Label htmlFor="password" className="text-slate-300 text-sm sm:text-base">
                     Password
                   </Label>
                   <Link
                     href="#"
-                    className="text-sm text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline"
+                    className="text-xs sm:text-sm text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline"
                   >
                     Forgot password?
                   </Link>
@@ -191,7 +192,7 @@ export default function LoginPage() {
                     onChange={handleInputChange}
                     placeholder="Enter your password"
                     required
-                    className="bg-slate-800/50 border-blue-500/30 text-white placeholder:text-slate-400 focus:border-blue-400 focus:ring-blue-400 pr-10 backdrop-blur-sm"
+                    className="bg-slate-800/50 border-blue-500/30 text-white placeholder:text-slate-400 focus:border-blue-400 focus:ring-blue-400 pr-10 backdrop-blur-sm text-sm sm:text-base"
                   />
                   <button
                     type="button"
@@ -209,30 +210,30 @@ export default function LoginPage() {
                   type="checkbox"
                   className="rounded border-blue-500/30 bg-slate-800/50 text-blue-500 focus:ring-blue-400"
                 />
-                <Label htmlFor="remember" className="text-slate-300 text-sm">
+                <Label htmlFor="remember" className="text-slate-300 text-xs sm:text-sm">
                   Remember me
                 </Label>
               </div>
             </form>
           </CardContent>
 
-          <CardFooter className="flex-col gap-3">
+          <CardFooter className="flex-col gap-2 sm:gap-3">
             <Button
               type="submit"
               onClick={handleSubmit}
               disabled={isLoading}
-              className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-2.5 transition-all duration-200 shadow-lg border border-gray-600"
+              className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-2 sm:py-2.5 transition-all duration-200 shadow-lg border border-gray-600 text-sm sm:text-base"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Signing in...</span>
+                  <span className="text-sm sm:text-base">Signing in...</span>
                 </div>
               ) : (
                 "Sign In"
               )}
             </Button>
-            <p className="text-center text-slate-400 text-sm">
+            <p className="text-center text-slate-400 text-xs sm:text-sm">
               Want to secure your data?{" "}
               <Link href="/signup" className="text-blue-400 hover:text-blue-300 underline">
                 Signup here

@@ -1,5 +1,4 @@
 {
-  "name": "cyberrazor-website",
   "version": 2,
   "builds": [
     {
@@ -7,13 +6,6 @@
       "use": "@vercel/next"
     }
   ],
-  "env": {
-    "NEXT_PUBLIC_API_URL": "@cyberrazor-api-url",
-    "NEXT_PUBLIC_WS_URL": "@cyberrazor-ws-url"
-  },
-  "functions": {
-    "app/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  "installCommand": "npm install",
+  "buildCommand": "npm run build"
 }
