@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import SpotlightCard from "@/components/SpotlightCard"
 import DocumentationModal from "@/components/DocumentationModal"
+import PaymentModal from "@/components/PaymentModal"
 import {
   Navbar,
   NavBody,
@@ -48,6 +49,7 @@ import {
   ChevronRightIcon,
 } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import GridBackgroundDemo from "@/components/GridBackgroundDemo"
 import DecryptedText from "@/components/DecryptedText"
@@ -278,260 +280,9 @@ This module is licensed under the MIT License. See LICENSE file for details.
 - **v1.1.0**: Added network monitoring and CIA audit features
 - **v1.2.0**: Enhanced threat intelligence integration`
 
-const vscodeExtensionDoc = `# CYBERRAZOR VS Code Extension Documentation
-
-## Overview
-The CYBERRAZOR Security Scanner VS Code extension provides real-time security analysis, vulnerability detection, and automated security recommendations directly within your development environment. This extension helps developers identify and fix security issues before they reach production.
-
-## Installation
-
-### Prerequisites
-Before installing the CYBERRAZOR VS Code extension, ensure your system meets the following requirements:
-
-#### System Requirements
-- **Operating System**: Windows 10/11, macOS 10.15+, or Linux (Ubuntu 18.04+, CentOS 7+, RHEL 7+)
-- **VS Code Version**: Visual Studio Code 1.70.0 or higher
-- **Memory**: Minimum 4GB RAM (8GB recommended for large projects)
-- **Storage**: At least 1GB free disk space
-- **Network**: Internet connection for threat intelligence updates
-
-#### Required VS Code Extensions
-The following extensions are recommended for optimal functionality:
-- **Python Extension**: Required for Python file analysis
-- **JavaScript/TypeScript**: Required for web application scanning
-- **Git Extension**: For repository-based security analysis
-
-#### System Dependencies
-- **Windows**:
-  - PowerShell 5.1 or later
-  - .NET Framework 4.7.2 or later
-- **macOS**:
-  - Xcode Command Line Tools
-  - Homebrew (recommended)
-- **Linux**:
-  - curl or wget
-  - unzip utility
-
-### Installation Methods
-
-#### Method 1: VS Code Marketplace
-1. Open VS Code
-2. Go to Extensions (Ctrl+Shift+X)
-3. Search for "CYBERRAZOR Security Scanner"
-4. Click Install
-
-#### Method 2: Command Line
-\`\`\`bash
-code --install-extension cyberrazor.security-scanner
-\`\`\`
-
-#### Method 3: Manual Installation
-1. Download the .vsix file from the releases page
-2. Open VS Code
-3. Go to Extensions
-4. Click "..." menu → "Install from VSIX..."
-5. Select the downloaded file
-
-## Configuration
-
-### Initial Setup
-1. After installation, the extension will prompt you to configure your API key
-2. Sign up at https://cyberrazor.com to get your API key
-3. Enter your API key in the extension settings
-
-### Settings Configuration
-Access settings via: File → Preferences → Settings → Extensions → CYBERRAZOR
-
-#### Core Settings
-\`\`\`json
-{
-  "cyberrazor.apiKey": "your-api-key-here",
-  "cyberrazor.enableRealTimeScanning": true,
-  "cyberrazor.scanOnSave": true,
-  "cyberrazor.scanOnOpen": false,
-  "cyberrazor.maxFileSize": "10MB",
-  "cyberrazor.excludePatterns": [
-    "node_modules/**",
-    ".git/**",
-    "*.min.js",
-    "*.min.css"
-  ]
-}
-\`\`\`
-
-#### Advanced Settings
-\`\`\`json
-{
-  "cyberrazor.threatIntelligence": true,
-  "cyberrazor.dependencyScanning": true,
-  "cyberrazor.secretDetection": true,
-  "cyberrazor.vulnerabilityScanning": true,
-  "cyberrazor.reportFormat": "detailed",
-  "cyberrazor.autoFix": false
-}
-\`\`\`
-
-## Features
-
-### Real-time Code Security Analysis
-- **Static Analysis**: Analyzes code for security vulnerabilities
-- **Pattern Detection**: Identifies common security anti-patterns
-- **Best Practices**: Suggests security improvements
-- **Performance Impact**: Minimal overhead with intelligent caching
-
-### Vulnerability Highlighting
-- **Inline Annotations**: Security issues highlighted directly in code
-- **Severity Levels**: Critical, High, Medium, Low classifications
-- **Quick Fixes**: Automated fixes for common vulnerabilities
-- **Documentation Links**: Direct links to security documentation
-
-### Security Best Practices Suggestions
-- **Code Review**: Automated security code review
-- **Compliance Checks**: Industry standard compliance verification
-- **Secure Coding**: Guidelines for secure development practices
-- **Framework-specific**: Tailored recommendations for different frameworks
-
-### Automated Dependency Scanning
-- **Package Analysis**: Scans npm, pip, composer, and other package managers
-- **Vulnerability Database**: Checks against known vulnerability databases
-- **License Compliance**: Identifies license conflicts and restrictions
-- **Update Recommendations**: Suggests secure package updates
-
-## Usage
-
-### Basic Scanning
-1. Open a file or project
-2. The extension automatically scans for security issues
-3. View results in the Problems panel (Ctrl+Shift+M)
-4. Click on issues to see detailed information and fixes
-
-### Manual Scanning
-1. Right-click in the editor
-2. Select "CYBERRAZOR: Scan File" or "CYBERRAZOR: Scan Project"
-3. View results in the CYBERRAZOR panel
-
-### Security Dashboard
-1. Open Command Palette (Ctrl+Shift+P)
-2. Type "CYBERRAZOR: Open Security Dashboard"
-3. View comprehensive security overview
-
-### Command Palette Commands
-- \`CYBERRAZOR: Scan Current File\`
-- \`CYBERRAZOR: Scan Project\`
-- \`CYBERRAZOR: Open Security Dashboard\`
-- \`CYBERRAZOR: Generate Security Report\`
-- \`CYBERRAZOR: Configure Settings\`
-
-## Integration
-
-### Git Integration
-The extension integrates with Git to provide:
-- **Pre-commit Hooks**: Automatic security scanning before commits
-- **Branch Analysis**: Security comparison between branches
-- **Commit History**: Track security improvements over time
-
-### CI/CD Integration
-\`\`\`yaml
-# GitHub Actions example
-name: Security Scan
-on: [push, pull_request]
-
-jobs:
-  security-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run CYBERRAZOR Security Scan
-        uses: cyberrazor/vscode-action@v1
-        with:
-          api-key: \${{ secrets.CYBERRAZOR_API_KEY }}
-\`\`\`
-
-### Team Collaboration
-- **Shared Settings**: Team-wide security configuration
-- **Security Reports**: Exportable security assessment reports
-- **Notification System**: Real-time security alerts for teams
-
-## Supported Languages and Frameworks
-
-### Languages
-- **JavaScript/TypeScript**: Node.js, React, Vue, Angular
-- **Python**: Django, Flask, FastAPI
-- **Java**: Spring Boot, Maven, Gradle
-- **C#**: .NET Core, ASP.NET
-- **PHP**: Laravel, Symfony, WordPress
-- **Go**: Gin, Echo, Fiber
-- **Ruby**: Rails, Sinatra
-
-### Frameworks and Libraries
-- **Web Frameworks**: Express, Koa, Hapi, Fastify
-- **Database**: MongoDB, PostgreSQL, MySQL, Redis
-- **Authentication**: JWT, OAuth, Passport
-- **Security**: Helmet, CORS, Rate Limiting
-
-## Troubleshooting
-
-### Common Issues
-
-#### Extension Not Loading
-- Restart VS Code
-- Check extension is enabled
-- Verify VS Code version compatibility
-
-#### API Key Issues
-- Verify API key is correct
-- Check internet connectivity
-- Ensure account is active
-
-#### Performance Issues
-- Adjust scan frequency settings
-- Exclude large files/directories
-- Increase VS Code memory allocation
-
-#### False Positives
-- Configure custom rules
-- Adjust sensitivity settings
-- Report issues to support
-
-### Debug Mode
-Enable debug mode for detailed logging:
-\`\`\`json
-{
-  "cyberrazor.debugMode": true,
-  "cyberrazor.logLevel": "debug"
-}
-\`\`\`
-
-### Support Channels
-- **Email**: support@cyberrazor.com
-- **Documentation**: https://docs.cyberrazor.com/vscode
-- **GitHub Issues**: https://github.com/cyberrazor/vscode-extension/issues
-- **Discord Community**: https://discord.gg/cyberrazor
-
-## Security and Privacy
-
-### Data Handling
-- **Local Processing**: Most analysis happens locally
-- **Encrypted Transmission**: All API communications are encrypted
-- **No Code Storage**: Source code is never stored on our servers
-- **GDPR Compliant**: Full compliance with data protection regulations
-
-### Permissions
-The extension requires the following permissions:
-- **File System Access**: To read and analyze your code
-- **Network Access**: To fetch threat intelligence updates
-- **Workspace Access**: To provide project-wide security analysis
-
-## License
-This extension is licensed under the MIT License. See LICENSE file for details.
-
-## Version History
-- **v1.0.0**: Initial release with basic security scanning
-- **v1.1.0**: Added real-time analysis and vulnerability highlighting
-- **v1.2.0**: Enhanced dependency scanning and CI/CD integration
-- **v1.3.0**: Added security dashboard and team collaboration features`
 
 export default function CyberRazorLanding() {
+  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [activeSection, setActiveSection] = useState("home")
@@ -545,6 +296,7 @@ export default function CyberRazorLanding() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -633,20 +385,17 @@ export default function CyberRazorLanding() {
               // Handle navigation if needed
             }}
           />
-          <div className="flex items-center">
-            <div className="relative group">
-              <Button 
-                variant="secondary" 
-                size="icon" 
-                className="size-8"
-                onClick={() => window.location.href = '/login'}
-              >
-                <ChevronRightIcon className="h-5 w-5" />
-              </Button>
-              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                Let's Secure
-              </div>
-            </div>
+          <div className="flex items-center relative z-[70]">
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                console.log('Start button clicked!');
+                router.push('/login');
+              }}
+              className="relative z-[70] pointer-events-auto"
+            >
+              Start
+            </Button>
           </div>
         </NavBody>
 
@@ -681,22 +430,17 @@ export default function CyberRazorLanding() {
               </a>
             ))}
             <div className="flex w-full justify-center mt-2 sm:mt-4">
-              <div className="relative group">
-                <Button
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    window.location.href = '/login';
-                  }}
-                  variant="secondary"
-                  size="icon"
-                  className="size-7 sm:size-8"
-                >
-                  <ChevronRightIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-                </Button>
-                <div className="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                  Let's Secure
-                </div>
-              </div>
+              <Button
+                onClick={() => {
+                  console.log('Mobile Start button clicked!');
+                  setIsMenuOpen(false);
+                  router.push('/login');
+                }}
+                variant="outline"
+                className="pointer-events-auto"
+              >
+                Start
+              </Button>
             </div>
           </MobileNavMenu>
         </MobileNav>
@@ -738,7 +482,7 @@ export default function CyberRazorLanding() {
                 </div>
               </div>
 
-              <div className="text-base sm:text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed font-orbitron font-light mt-8 px-4">
+              <div className="text-base sm:text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed font-orbitron font-light mt-8 px-4 break-words hyphens-auto">
                 <DecryptedText
                   text="AI-powered threat detection and real-time cyber defense"
                   speed={15}
@@ -809,7 +553,7 @@ export default function CyberRazorLanding() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
               <DecryptedText text="Developer Arsenal" animateOn="view" />
             </h2>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4 break-words hyphens-auto">
               Integrate CYBERRAZOR's powerful cybersecurity tools directly into your development workflow with our open-source modules and extensions.
             </p>
           </div>
@@ -866,7 +610,7 @@ export default function CyberRazorLanding() {
               </CardContent>
             </FloatingCard>
 
-            {/* VS Code Extension */}
+            {/* Mobile APK */}
             <FloatingCard className="group overflow-hidden">
               <CardHeader className="relative">
                 <div className="flex items-center space-x-4 mb-4">
@@ -874,11 +618,11 @@ export default function CyberRazorLanding() {
                     <Cpu className="h-8 w-8 text-white" />
                   </div>
                   <CardTitle className="text-2xl text-white">
-                    <DecryptedText text="VS Code Extension" />
+                    <DecryptedText text="Mobile APK" />
                   </CardTitle>
                 </div>
                 <CardDescription className="text-slate-300 text-base leading-relaxed">
-                  Enhance your coding security with real-time threat detection, vulnerability scanning, and automated security recommendations.
+                  Secure your mobile devices with our comprehensive Android security scanner and threat detection app.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -886,18 +630,18 @@ export default function CyberRazorLanding() {
                   <div className="bg-slate-800/50 border border-blue-500/30 rounded-lg p-4">
                     <div className="flex items-center space-x-2 mb-2">
                       <Cpu className="h-4 w-4 text-blue-400" />
-                      <span className="text-sm text-slate-400 font-mono">VS Code Marketplace</span>
+                      <span className="text-sm text-slate-400 font-mono">Android APK</span>
                     </div>
                     <code className="text-blue-400 font-mono text-lg block">
-                      CYBERRAZOR Security Scanner
+                      CYBERRAZOR Mobile Security
                     </code>
                   </div>
                   <ul className="space-y-3">
                     {[
-                      "Real-time code security analysis",
-                      "Vulnerability highlighting", 
-                      "Security best practices suggestions",
-                      "Automated dependency scanning"
+                      "Real-time mobile threat detection",
+                      "App vulnerability scanning", 
+                      "Network security monitoring",
+                      "Device security assessment"
                     ].map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-slate-400 group-hover:text-slate-300 transition-colors">
                         <CheckCircle className="h-5 w-5 text-green-400 mr-3 flex-shrink-0" />
@@ -905,14 +649,13 @@ export default function CyberRazorLanding() {
                       </li>
                     ))}
                   </ul>
-                  <DocumentationModal 
-                    title="VS Code Extension Documentation" 
-                    content={vscodeExtensionDoc}
+                  <GlowingButton 
+                    variant="secondary" 
+                    className="w-full"
+                    onClick={() => window.open('/downloads/cyberrazor-mobile.apk', '_blank')}
                   >
-                    <GlowingButton variant="secondary" className="w-full">
-                      View Documentation
-                    </GlowingButton>
-                  </DocumentationModal>
+                    Download APK
+                  </GlowingButton>
                 </div>
               </CardContent>
             </FloatingCard>
@@ -925,64 +668,36 @@ export default function CyberRazorLanding() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent px-4">
-              <DecryptedText text="Elite Cyber Warriors" animateOn="view" />
+              <DecryptedText text="About CyberRazor" animateOn="view" />
             </h2>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4">
-              Our certified cybersecurity specialists combine decades of experience in advanced persistent threat
-              hunting, digital forensics, and next-generation defense strategies.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {[
-              {
-                name: "Hiba Sharif",
-                role: "Cybersecurity Specialist",
-                expertise: "Advanced penetration testing and vulnerability discovery",
-                linkedin: "https://www.linkedin.com/in/hiba-s-257a25264/",
-                specialIcon: Shield,
-              },
-              {
-                name: "Nisa Iqbal",
-                role: "Backend Developer",
-                expertise: "Security infrastructure and database management",
-                linkedin: "https://www.linkedin.com/in/nisa-iqbal/",
-                specialIcon: Shield,
-              },
-              {
-                name: "Ramla Junaid",
-                role: "Frontend Developer",
-                expertise: "Security dashboard and user experience design",
-                linkedin: "https://www.linkedin.com/in/ramla-junaid-42626127a/",
-                specialIcon: Shield,
-              },
-              {
-                name: "Vira Siddiqui",
-                role: "Content and Technical Developer",
-                expertise: "Documentation & Research",
-                linkedin: "https://www.linkedin.com/in/vira-siddiqui-523b90265/",
-                specialIcon: Shield,
-              },
-            ].map((member, index) => (
-              <SpotlightCard key={index} className="text-center group" spotlightColor="rgba(59, 130, 246, 0.2)">
-                <h3 className="text-xl font-bold text-white mb-1">
-                  <DecryptedText text={member.name} />
-                </h3>
-                <p className="text-blue-400 font-medium mb-2">{member.role}</p>
-                <p className="text-slate-400 text-sm mb-4">{member.expertise}</p>
-                <a 
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                  LinkedIn
-                </a>
-              </SpotlightCard>
-            ))}
+            <div className="max-w-4xl mx-auto px-4">
+              <p className="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed break-words hyphens-auto">
+                CyberRazor is an AI-powered automated tool that scans files, detects threats, and executes SOAR (Security Orchestration, Automation, and Response) actions to enhance security and streamline incident response.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-full mb-4">
+                    <Radar className="w-8 h-8 text-blue-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">AI-Powered Detection</h3>
+                  <p className="text-slate-400">Advanced machine learning algorithms for accurate threat identification</p>
+                </div>
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-500/20 rounded-full mb-4">
+                    <Zap className="w-8 h-8 text-cyan-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Automated Response</h3>
+                  <p className="text-slate-400">Instant SOAR actions to neutralize threats before they spread</p>
+                </div>
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-500/20 rounded-full mb-4">
+                    <ShieldCheck className="w-8 h-8 text-purple-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Enhanced Security</h3>
+                  <p className="text-slate-400">Comprehensive protection with streamlined incident response</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -995,7 +710,7 @@ export default function CyberRazorLanding() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent px-4">
               <DecryptedText text="Cyber Arsenal" animateOn="view" />
             </h2>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4 break-words hyphens-auto">
               Comprehensive cybersecurity solutions powered by AI, machine learning, and advanced threat intelligence to
               protect your digital infrastructure.
             </p>
@@ -1020,9 +735,9 @@ export default function CyberRazorLanding() {
                 icon: Radar,
                 title: "Threat Intelligence",
                 description:
-                  "Advanced threat hunting using quantum-enhanced analytics and global intelligence networks.",
+                  "Advanced threat hunting using AI-enhanced analytics and global intelligence networks.",
                 features: [
-                  "Quantum threat analysis",
+                  "AI threat analysis",
                   "Global intel feeds",
                   "Behavioral profiling",
                   "Zero-day detection",
@@ -1056,8 +771,8 @@ export default function CyberRazorLanding() {
                 icon: Globe,
                 title: "Security Architecture",
                 description:
-                  "Next-generation security architecture design with zero-trust principles and quantum-ready encryption.",
-                features: ["Zero-trust design", "Quantum encryption", "Micro-segmentation", "Cloud-native security"],
+                  "Next-generation security architecture design with zero-trust principles and advanced encryption.",
+                features: ["Zero-trust design", "Advanced encryption", "Micro-segmentation", "Cloud-native security"],
                 color: "from-cyan-500 to-blue-500",
               },
             ].map((service, index) => (
@@ -1106,7 +821,7 @@ export default function CyberRazorLanding() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent px-4">
               <DecryptedText text="Defense Packages" animateOn="view" />
             </h2>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4 break-words hyphens-auto">
               Choose your cybersecurity solution. From free basic scanning to enterprise-grade AI-powered security, 
               we have the perfect package for your needs.
             </p>
@@ -1118,12 +833,11 @@ export default function CyberRazorLanding() {
                 name: "Free Tier",
                 price: "$0",
                 period: "",
-                description: "Basic security scanning for individual users",
+                description: "CLI-based security tool with pro trial",
                 features: [
-                  "Run File Scan",
-                  "Run Network Monitoring",
-                  "Run Limited CIA Audit",
-                  "Wazuh Alerts",
+                  "CLI Based tool (Free Version)",
+                  "User portal",
+                  "7 days free Pro trial",
                 ],
                 popular: false,
                 color: "from-blue-500/20 to-cyan-500/20",
@@ -1131,33 +845,36 @@ export default function CyberRazorLanding() {
               },
               {
                 name: "Pro Tier",
-                price: "$100",
+                price: "$200",
                 period: "/month",
-                description: "Advanced AI-powered security for professionals",
+                description: "Advanced AI-powered security with complete features",
                 features: [
-                  "AI File Scanning (can do playbook thing)",
-                  "AI Network Analysis (can block IP too)",
-                  "CIA Security Audits (complete)",
-                  "Export Scan Summary",
+                  "CLI Based tool (Pro Version)",
+                  "Pro admin portal",
+                  "AI agent for file scanning",
+                  "AI network scanning",
+                  "Incident Response Report",
+                  "Complete CIA according to ISO 27001",
                 ],
                 popular: true,
                 color: "from-blue-600/30 to-cyan-600/30",
                 buttonText: "Get Pro",
               },
               {
-                name: "Custom",
-                price: "Contact",
-                period: "",
-                description: "Enterprise solutions tailored to your needs",
+                name: "Enterprise Tier",
+                price: "$1500",
+                period: "/year",
+                originalPrice: "$3000",
+                description: "Fully customizable enterprise security solution",
                 features: [
-                  "Custom security solutions",
+                  "All Pro features included",
+                  "Customize dashboard",
+                  "Customize tool tokens (+$200)",
+                  "CIA Standardize",
+                  "Customize API Key of AI",
                   "Dedicated support team",
-                  "Advanced integrations",
-                  "White-label options",
-                  "Custom reporting",
                   "Priority support",
                   "On-site deployment",
-                  "Training & consultation",
                 ],
                 popular: false,
                 color: "from-blue-700/20 to-cyan-700/20",
@@ -1177,10 +894,13 @@ export default function CyberRazorLanding() {
                     <DecryptedText text={plan.name} />
                   </CardTitle>
                   <div className="mb-4">
+                    {plan.originalPrice && (
+                      <div className="text-2xl text-slate-400 line-through mb-1">{plan.originalPrice}{plan.period}</div>
+                    )}
                     <span className="text-5xl font-bold text-white">{plan.price}</span>
                     <span className="text-slate-400 text-lg">{plan.period}</span>
                   </div>
-                  <CardDescription className="text-slate-300 text-lg">{plan.description}</CardDescription>
+                  <CardDescription className="text-slate-300 text-lg break-words hyphens-auto">{plan.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6 relative z-10 flex-1 flex flex-col">
                   <ul className="space-y-4 flex-1">
@@ -1198,10 +918,10 @@ export default function CyberRazorLanding() {
                     <GlowingButton
                       className={cn("w-full text-lg py-4", plan.popular && "shadow-xl shadow-blue-500/30")}
                       onClick={() => {
-                        if (plan.name === "Custom") {
+                        if (plan.name === "Enterprise Tier") {
                           window.location.href = "/appointment";
                         } else if (plan.name === "Pro Tier") {
-                          window.location.href = "/checkout";
+                          setIsPaymentModalOpen(true);
                         } else if (plan.name === "Free Tier") {
                           window.location.href = "/login";
                         } else {
@@ -1220,39 +940,39 @@ export default function CyberRazorLanding() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-black">
+      <section id="contact" className="py-12 sm:py-16 lg:py-20 bg-black">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 max-w-6xl mx-auto">
             {/* Left Column - Introduction and Social Media */}
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               <div>
-                <p className="text-sm text-gray-400 mb-2">Contact Section</p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
+                <p className="text-xs sm:text-sm text-gray-400 mb-2">Contact Section</p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 lg:mb-6 leading-tight break-words">
                   Get in touch
                 </h2>
-                <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                  Write one or two welcoming sentences that encourage contact. Include your response time commitment and highlight your team's readiness to help.
+                <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-none break-words hyphens-auto">
+                  Ready to explore how CyberRazor can secure your future? Our team is standing by and eager to help you get started. We commit to responding to all inquiries within 24 hours, ensuring you get the support and answers you need quickly.
                 </p>
               </div>
               
               {/* Social Media Icons */}
-              <div className="flex flex-wrap gap-4 sm:gap-6">
-                <a href="https://www.instagram.com/cyber_razor123?igsh=N25mZ2p3c211bHpz" target="_blank" rel="noopener noreferrer" className="text-white hover:text-pink-400 transition-colors" aria-label="Instagram">
+              <div className="flex flex-wrap gap-3 sm:gap-4 lg:gap-6">
+                <a href="https://www.instagram.com/cyber_razor123?igsh=N25mZ2p3c211bHpz" target="_blank" rel="noopener noreferrer" className="text-white hover:text-pink-400 transition-colors p-2 hover:bg-pink-400/10 rounded-lg" aria-label="Instagram">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                   </svg>
                 </a>
-                <a href="https://www.facebook.com/share/1ABCuCb6vV/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-400 transition-colors" aria-label="Facebook">
+                <a href="https://www.facebook.com/share/1ABCuCb6vV/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-400 transition-colors p-2 hover:bg-blue-400/10 rounded-lg" aria-label="Facebook">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                   </svg>
                 </a>
-                <a href="https://github.com/CyberRazor617" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400 transition-colors" aria-label="GitHub">
+                <a href="https://github.com/CyberRazor617" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400 transition-colors p-2 hover:bg-gray-400/10 rounded-lg" aria-label="GitHub">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                   </svg>
                 </a>
-                <a href="https://www.linkedin.com/company/cyberrazor/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-600 transition-colors" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/company/cyberrazor/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-600 transition-colors p-2 hover:bg-blue-600/10 rounded-lg" aria-label="LinkedIn">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                   </svg>
@@ -1261,29 +981,29 @@ export default function CyberRazorLanding() {
             </div>
 
             {/* Right Column - Contact Methods Card */}
-            <div className="bg-gray-800 rounded-lg p-6 sm:p-8">
-              <div className="space-y-8">
+            <div className="bg-gray-800 rounded-lg p-4 sm:p-6 lg:p-8">
+              <div className="space-y-6 sm:space-y-8">
                 {/* Call us */}
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-3 sm:space-x-4">
                   <div className="flex-shrink-0">
-                    <Phone className="h-6 w-6 text-white" />
+                    <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-white font-bold text-lg mb-1">Call us</h3>
-                    <a href="tel:+923152754324" className="text-white underline hover:text-gray-300 transition-colors">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-white font-bold text-base sm:text-lg mb-1 break-words">Call us</h3>
+                    <a href="tel:+923152754324" className="text-white underline hover:text-gray-300 transition-colors text-sm sm:text-base break-all">
                       +923152754324
                     </a>
                   </div>
                 </div>
 
                 {/* Write an email */}
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-3 sm:space-x-4">
                   <div className="flex-shrink-0">
-                    <Mail className="h-6 w-6 text-white" />
+                    <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-white font-bold text-lg mb-1">Write an email</h3>
-                    <a href="mailto:cyberrazor0123@gmail.com" className="text-white underline hover:text-gray-300 transition-colors">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-white font-bold text-base sm:text-lg mb-1 break-words">Write an email</h3>
+                    <a href="mailto:cyberrazor0123@gmail.com" className="text-white underline hover:text-gray-300 transition-colors text-sm sm:text-base break-all">
                       cyberrazor0123@gmail.com
                     </a>
                   </div>
@@ -1333,37 +1053,13 @@ export default function CyberRazorLanding() {
                 AI-powered threat detection and real-time cyber defense
               </p>
             </div>
-            <div>
-              <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Defense Arsenal</h4>
-              <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
-                <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    AI-Powered SOC
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Threat Intelligence
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Rapid Response
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Penetration Testing
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            
             <div>
               <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Command</h4>
               <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
                 <li>
                   <Link href="#" className="hover:text-blue-400 transition-colors">
-                    About Team
+                    About
                   </Link>
                 </li>
                 <li>
@@ -1383,31 +1079,7 @@ export default function CyberRazorLanding() {
                 </li>
               </ul>
             </div>
-            <div>
-              <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Security</h4>
-              <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
-                <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Privacy Shield
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Terms of Defense
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Security Protocols
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Compliance
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            
           </div>
           <div className="border-t border-blue-500/20 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center">
             <p className="text-slate-400 text-xs sm:text-sm font-orbitron font-light">
@@ -1419,6 +1091,16 @@ export default function CyberRazorLanding() {
 
       {/* Target Cursor - only show in services section */}
       {showTargetCursor && <TargetCursor targetSelector=".cursor-target" spinDuration={1.5} hideDefaultCursor={true} />}
+
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        onPaymentSuccess={(txHash) => {
+          console.log("Payment successful:", txHash);
+          // You can add additional logic here, like redirecting to dashboard
+        }}
+      />
 
     </div>
   )

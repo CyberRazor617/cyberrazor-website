@@ -13,10 +13,20 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
-import { Eye, EyeOff, ArrowLeft } from "lucide-react"
+import { config } from "@/lib/config"
+import { Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
 import { Orbitron } from "next/font/google"
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar"
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -32,6 +42,8 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
   const emailInputRef = useRef<HTMLInputElement>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,17 +60,48 @@ export default function LoginPage() {
     setError("")
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Call the login API (backend)
+      const response = await fetch(`${config.backendUrl}${config.api.auth.login}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        // Handle different error types
+        if (data.status === 'pending') {
+          setError("Your account is still under review. You will receive an email once your account is approved.")
+        } else if (data.status === 'rejected') {
+          setError("Your account application has been rejected. Please contact support.")
+        } else if (data.status === 'inactive') {
+          setError("Your account has been deactivated. Please contact support.")
+        } else {
+          setError(data.message || "Invalid credentials. Please try again.")
+        }
+        return
+      }
+
+      // Store the token locally (for same-origin flows)
+      if (data.access_token) {
+        localStorage.setItem('token', data.access_token)
+        localStorage.setItem('access_token', data.access_token)
+        localStorage.setItem('user', JSON.stringify(data.user))
+      }
       
-      // Here you would typically authenticate the user
-      console.log("Login attempt:", formData)
+      // Redirect to user portal with token for cross-origin localStorage
+      const redirectUrl = `${config.userPortalUrl}?token=${encodeURIComponent(data.access_token)}`
+      window.location.href = redirectUrl
       
-      // Redirect to dashboard or home page
-      window.location.href = "/dashboard"
     } catch (error) {
       console.error("Login error:", error)
-      setError("Invalid credentials. Please try again.")
+      setError("Failed to login. Please try again.")
     } finally {
       setIsLoading(false)
     }
@@ -102,30 +145,61 @@ export default function LoginPage() {
         </svg>
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 border-b border-white/10 backdrop-blur-xl bg-black/20">
-        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 sm:space-x-3">
-              <Image
-                src="/logo.jpg"
-                alt="CYBERRAZOR Logo"
-                width={28}
-                height={28}
-                className="rounded-lg sm:w-8 sm:h-8"
-              />
-            </div>
-            <Link
-              href="/"
-              className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all duration-200 backdrop-blur-sm"
-            >
-              <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Back to Home</span>
-              <span className="sm:hidden">Back</span>
-            </Link>
+      {/* Navbar */}
+      <Navbar>
+        {/* Desktop Navigation */}
+        <NavBody>
+          <NavbarLogo />
+          <NavItems 
+            items={[
+              { name: "Home", link: "/" },
+              { name: "About", link: "/#about" },
+              { name: "Services", link: "/#services" },
+              { name: "Pricing", link: "/#pricing" },
+              { name: "Contact", link: "/#contact" },
+            ]} 
+            onItemClick={() => {
+              // Handle navigation if needed
+            }}
+          />
+          <div className="flex items-center relative z-[70]">
+            {/* No additional buttons needed on login page */}
           </div>
-        </div>
-      </header>
+        </NavBody>
+
+        {/* Mobile Navigation */}
+        <MobileNav>
+          <MobileNavHeader>
+            <NavbarLogo />
+            <MobileNavToggle
+              isOpen={isMenuOpen}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </MobileNavHeader>
+
+          <MobileNavMenu
+            isOpen={isMenuOpen}
+            onClose={() => setIsMenuOpen(false)}
+          >
+            {[
+              { name: "Home", link: "/" },
+              { name: "About", link: "/#about" },
+              { name: "Services", link: "/#services" },
+              { name: "Pricing", link: "/#pricing" },
+              { name: "Contact", link: "/#contact" },
+            ].map((item, idx) => (
+              <a
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300 text-base sm:text-lg py-2 sm:py-3 px-2 sm:px-4 rounded-lg hover:bg-gray-100/10 dark:hover:bg-gray-800/10 transition-colors"
+              >
+                <span className="block">{item.name}</span>
+              </a>
+            ))}
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
 
       {/* Main Content */}
       <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-100px)] sm:min-h-[calc(100vh-120px)] px-4 py-6 sm:py-0">
@@ -208,6 +282,8 @@ export default function LoginPage() {
                 <input
                   id="remember"
                   type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
                   className="rounded border-blue-500/30 bg-slate-800/50 text-blue-500 focus:ring-blue-400"
                 />
                 <Label htmlFor="remember" className="text-slate-300 text-xs sm:text-sm">
@@ -221,8 +297,8 @@ export default function LoginPage() {
             <Button
               type="submit"
               onClick={handleSubmit}
-              disabled={isLoading}
-              className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-2 sm:py-2.5 transition-all duration-200 shadow-lg border border-gray-600 text-sm sm:text-base"
+              disabled={isLoading || !rememberMe || !formData.email || !formData.password}
+              className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-2 sm:py-2.5 transition-all duration-200 shadow-lg border border-gray-600 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">

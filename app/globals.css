@@ -71,3 +71,116 @@
 .font-orbitron {
   font-family: var(--font-orbitron), monospace;
 }
+
+/* Custom scrollbar styles for dark theme */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(59, 130, 246, 0.5);
+}
+
+/* Modal content text wrapping and overflow fixes */
+.modal-content-wrapper {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.6;
+}
+
+.modal-content-wrapper pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.modal-content-wrapper code {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
+  font-size: 0.875rem;
+}
+
+.modal-content-wrapper p,
+.modal-content-wrapper h1,
+.modal-content-wrapper h2,
+.modal-content-wrapper h3,
+.modal-content-wrapper h4,
+.modal-content-wrapper li {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Ensure list items display properly */
+.modal-content-wrapper ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  list-style-type: disc;
+}
+
+.modal-content-wrapper li {
+  list-style-type: disc;
+  margin-left: 0;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+/* Handle long URLs and paths */
+.modal-content-wrapper a,
+.modal-content-wrapper [href] {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .modal-content-wrapper {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  .modal-content-wrapper h1 {
+    font-size: 1.5rem;
+  }
+  
+  .modal-content-wrapper h2 {
+    font-size: 1.25rem;
+  }
+  
+  .modal-content-wrapper h3 {
+    font-size: 1.125rem;
+  }
+  
+  .modal-content-wrapper pre {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+  
+  .modal-content-wrapper code {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.25rem;
+  }
+}

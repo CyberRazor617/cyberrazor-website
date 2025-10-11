@@ -18,6 +18,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Orbitron } from "next/font/google"
 import { toast, ToastContainer } from 'react-toastify'
+import { config } from "@/lib/config"
 import 'react-toastify/dist/ReactToastify.css'
 
 const orbitron = Orbitron({
@@ -41,6 +42,7 @@ export default function SignupPage() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
   const [passwordStrength, setPasswordStrength] = useState(0)
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
   const firstNameInputRef = useRef<HTMLInputElement>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +57,22 @@ export default function SignupPage() {
       const strength = calculatePasswordStrength(value)
       setPasswordStrength(strength)
     }
+  }
+
+  const generateUsername = (first: string, last: string, email: string) => {
+    const base = `${first}${last ? '_' + last : ''}`.toLowerCase()
+      .replace(/\s+/g, '_')
+      .replace(/[^a-z0-9_-]/g, '')
+      .slice(0, 50)
+
+    if (base && base.length >= 3) return base
+
+    const emailLocal = (email.split('@')[0] || '').toLowerCase()
+      .replace(/\s+/g, '_')
+      .replace(/[^a-z0-9_-]/g, '')
+      .slice(0, 50)
+
+    return emailLocal && emailLocal.length >= 3 ? emailLocal : `user_${Date.now()}`
   }
 
   const calculatePasswordStrength = (password: string) => {
@@ -99,6 +117,20 @@ export default function SignupPage() {
         return
       }
 
+      // Enforce backend password policy: at least 6 chars, 1 lower, 1 upper, 1 number
+      const passwordPolicy = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
+      if (!passwordPolicy.test(formData.password)) {
+        toast.error("Password must be 6+ chars and include lowercase, uppercase, and a number.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        })
+        return
+      }
+
       // Validate password strength
       if (passwordStrength < 3) {
         toast.error("Password is too weak. Please use a stronger password.", {
@@ -112,15 +144,31 @@ export default function SignupPage() {
         return
       }
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // Here you would typically create the user account
-      console.log("Signup attempt:", formData)
-      
+      // Call the signup API (backend)
+      const response = await fetch(`${config.backendUrl}${config.api.auth.signup}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: generateUsername(formData.firstName, formData.lastName, formData.email),
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        const validationMsg = Array.isArray(data?.details) && data.details.length
+          ? data.details[0]?.msg || data.details[0]?.message
+          : data?.message || 'Failed to create account'
+        throw new Error(validationMsg)
+      }
+
       setSuccess(true)
       
-      toast.success("Account created successfully! Redirecting to dashboard...", {
+      toast.success(data.message || "Account created successfully! Redirecting to login...", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -129,14 +177,17 @@ export default function SignupPage() {
         draggable: true,
       })
       
-      // Redirect to dashboard after a short delay
+      // Redirect to login page after a short delay
       setTimeout(() => {
-        window.location.href = "/dashboard"
+        window.location.href = "/login"
       }, 2000)
       
     } catch (error) {
       console.error("Signup error:", error)
-      toast.error("Failed to create account. Please try again.", {
+      const errorMessage = typeof error === "object" && error !== null && "message" in error
+        ? (error as { message?: string }).message
+        : undefined
+      toast.error(errorMessage || "Failed to create account. Please try again.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -400,6 +451,8 @@ export default function SignupPage() {
                 <input
                   id="terms"
                   type="checkbox"
+                  checked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
                   required
                   className="mt-1 rounded border-blue-500/30 bg-slate-800/50 text-blue-500 focus:ring-blue-400"
                 />
@@ -421,8 +474,8 @@ export default function SignupPage() {
             <Button
               type="submit"
               onClick={handleSubmit}
-              disabled={isLoading}
-              className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-2 sm:py-2.5 transition-all duration-200 shadow-lg border border-gray-600 text-sm sm:text-base"
+              disabled={isLoading || !acceptedTerms || !formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword || formData.password !== formData.confirmPassword}
+              className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-2 sm:py-2.5 transition-all duration-200 shadow-lg border border-gray-600 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">

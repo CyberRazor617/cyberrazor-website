@@ -48,7 +48,7 @@ const DashboardPage = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/auth/me`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://cyberrazorbackend.vercel.app'}/api/auth/me`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
