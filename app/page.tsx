@@ -1058,18 +1058,18 @@ export default function CyberRazorLanding() {
               <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Command</h4>
               <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
                 <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
+                  <Link href="#about" className="hover:text-blue-400 transition-colors">
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Join Forces
+                  <Link href="#services" className="hover:text-blue-400 transition-colors">
+                    Services
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-blue-400 transition-colors">
-                    Threat Blog
+                  <Link href="#pricing" className="hover:text-blue-400 transition-colors">
+                    pricing
                   </Link>
                 </li>
                 <li>
