@@ -496,9 +496,9 @@ export default function CyberRazorLanding() {
                 <GlowingButton
                   size="lg"
                   className="text-sm sm:text-lg px-4 sm:px-10 py-3 sm:py-6 group font-orbitron font-bold tracking-wide w-full sm:w-auto"
-                  onClick={() => scrollToSection("contact")}
+                  onClick={() => router.push('/login')}
                 >
-                  <DecryptedText text="DEPLOY DEFENSE" characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" />
+                  <DecryptedText text="SECURE TOGETHER" characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" />
                 </GlowingButton>
                 <GlowingButton
                   size="lg"
@@ -1080,6 +1080,36 @@ export default function CyberRazorLanding() {
               </ul>
             </div>
             
+             <div>
+              <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Trends</h4>
+              <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
+                <li>
+                  <Link href="/blog" className="hover:text-blue-400 transition-colors">
+                    Threat Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy-policy" className="hover:text-blue-400 transition-colors">
+                    Privacy Shield
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms-of-service" className="hover:text-blue-400 transition-colors">
+                    Terms of Defense
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/security" className="hover:text-blue-400 transition-colors">
+                    Security Protocols
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/compliance" className="hover:text-blue-400 transition-colors">
+                    Compliance
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
           <div className="border-t border-blue-500/20 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center">
             <p className="text-slate-400 text-xs sm:text-sm font-orbitron font-light">

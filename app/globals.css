@@ -64,7 +64,13 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-white;
+  }
+  
+  /* Force dark theme colors */
+  html, body {
+    background-color: #000000 !important;
+    color: #ffffff !important;
   }
 }
 
@@ -183,4 +189,25 @@
     font-size: 0.75rem;
     padding: 0.125rem 0.25rem;
   }
+}
+
+/* Ensure proper dark theme for buttons */
+button[data-variant="ghost"]:hover {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  color: rgb(147, 197, 253) !important;
+}
+
+button[data-variant="outline"]:hover {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-color: rgb(96, 165, 250) !important;
+  color: rgb(147, 197, 253) !important;
+}
+
+/* Force dark backgrounds */
+.bg-background {
+  background-color: #000000 !important;
+}
+
+.bg-card {
+  background-color: rgba(15, 23, 42, 0.8) !important;
 }
