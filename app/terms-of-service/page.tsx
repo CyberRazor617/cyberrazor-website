@@ -1,8 +1,20 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar"
 import {
   Shield,
   Lock,
@@ -13,8 +25,8 @@ import {
   Home,
   Scale,
 } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
-import GridBackgroundDemo from "@/components/GridBackgroundDemo"
 import DecryptedText from "@/components/DecryptedText"
 import FloatingCard from "@/components/FloatingCard"
 import { Orbitron } from "next/font/google"
@@ -60,36 +72,94 @@ const termsItems = [
 
 export default function TermsOfServicePage() {
   const router = useRouter()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <div className={cn("min-h-screen bg-black text-white relative terms-page", orbitron.variable)} style={{ backgroundColor: '#000000' }}>
+    <div className={cn("min-h-screen bg-black text-white relative terms-page dark", orbitron.variable)} style={{ backgroundColor: '#000000' }}>
       {/* Multiple layers to ensure solid black background */}
       <div className="fixed inset-0 bg-black z-0" style={{ backgroundColor: '#000000' }}></div>
       <div className="absolute inset-0 bg-black z-0" style={{ backgroundColor: '#000000' }}></div>
       <div className="absolute inset-0 bg-gradient-to-b from-black to-black z-0"></div>
       
-      {/* Back to Home Button */}
-      <div className="fixed top-6 left-6 z-50">
-        <Button 
-          variant="outline" 
-          onClick={() => router.push('/')}
-          className="bg-black/90 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300"
-        >
-          <Home className="h-4 w-4 mr-2" />
-          Home
-        </Button>
-      </div>
+      {/* Navbar */}
+      <Navbar>
+        <NavBody>
+          <NavbarLogo />
+          <NavItems 
+            items={[
+              { name: "Home", link: "/" },
+              { name: "About", link: "/#about" },
+              { name: "Services", link: "/#services" },
+              { name: "Pricing", link: "/#pricing" },
+              { name: "Contact", link: "/#contact" },
+            ]} 
+            onItemClick={() => {}}
+          />
+          <div className="flex items-center relative z-[70]">
+            <Button 
+              variant="outline" 
+              onClick={() => router.push('/login')}
+              className="relative z-[70] pointer-events-auto bg-transparent border-blue-500 text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 hover:border-blue-400"
+            >
+              Start
+            </Button>
+          </div>
+        </NavBody>
+
+        <MobileNav>
+          <MobileNavHeader>
+            <NavbarLogo />
+            <MobileNavToggle
+              isOpen={isMenuOpen}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </MobileNavHeader>
+
+          <MobileNavMenu
+            isOpen={isMenuOpen}
+            onClose={() => setIsMenuOpen(false)}
+          >
+            {[
+              { name: "Home", link: "/" },
+              { name: "About", link: "/#about" },
+              { name: "Services", link: "/#services" },
+              { name: "Pricing", link: "/#pricing" },
+              { name: "Contact", link: "/#contact" },
+            ].map((item, idx) => (
+              <a
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300 text-base sm:text-lg py-2 sm:py-3 px-2 sm:px-4 rounded-lg hover:bg-gray-100/10 dark:hover:bg-gray-800/10 transition-colors"
+              >
+                <span className="block">{item.name}</span>
+              </a>
+            ))}
+            <div className="flex w-full justify-center mt-2 sm:mt-4">
+              <Button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  router.push('/login');
+                }}
+                variant="outline"
+                className="pointer-events-auto bg-transparent border-blue-500 text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 hover:border-blue-400"
+              >
+                Start
+              </Button>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
 
       {/* Main Content */}
-      <div className="pt-8 relative z-10">
+      <div className="pt-16 sm:pt-20 relative z-10">
         {/* Hero Section */}
         <section className="relative py-16 sm:py-20 overflow-hidden">
-          <GridBackgroundDemo className="absolute inset-0">
-            <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="max-w-6xl mx-auto text-center space-y-6 sm:space-y-8">
-                <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-6 animate-pulse">
-                  ⚖️ Terms of Defense
-                </Badge>
+          <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto text-center space-y-6 sm:space-y-8">
+              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-6 animate-pulse">
+                ⚖️ Terms of Defense
+              </Badge>
 
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight font-orbitron">
                   <div className="bg-gradient-to-b from-white via-blue-200 to-blue-400 bg-clip-text text-transparent">
@@ -119,7 +189,6 @@ export default function TermsOfServicePage() {
                 </div>
               </div>
             </div>
-          </GridBackgroundDemo>
         </section>
 
         {/* Terms Details Section */}
@@ -201,24 +270,24 @@ export default function TermsOfServicePage() {
               <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Command</h4>
               <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
                 <li>
-                  <button onClick={() => router.push('/#about')} className="hover:text-blue-400 transition-colors">
+                  <Link href="/#about" className="hover:text-blue-400 transition-colors">
                     About
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => router.push('/#services')} className="hover:text-blue-400 transition-colors">
+                  <Link href="/#services" className="hover:text-blue-400 transition-colors">
                     Services
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => router.push('/#pricing')} className="hover:text-blue-400 transition-colors">
+                  <Link href="/#pricing" className="hover:text-blue-400 transition-colors">
                     Pricing
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => router.push('/#contact')} className="hover:text-blue-400 transition-colors">
+                  <Link href="/#contact" className="hover:text-blue-400 transition-colors">
                     Contact
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -227,24 +296,29 @@ export default function TermsOfServicePage() {
               <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Trends</h4>
               <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
                 <li>
-                  <button onClick={() => router.push('/blog')} className="hover:text-blue-400 transition-colors">
+                  <Link href="/blog" className="hover:text-blue-400 transition-colors">
                     Threat Blog
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => router.push('/privacy-policy')} className="hover:text-blue-400 transition-colors">
+                  <Link href="/privacy-policy" className="hover:text-blue-400 transition-colors">
                     Privacy Shield
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => router.push('/terms-of-service')} className="hover:text-blue-400 transition-colors text-blue-400">
+                  <Link href="/terms-of-service" className="hover:text-blue-400 transition-colors text-blue-400">
                     Terms of Defense
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => router.push('/security')} className="hover:text-blue-400 transition-colors">
+                  <Link href="/security" className="hover:text-blue-400 transition-colors">
                     Security Protocols
-                  </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/compliance" className="hover:text-blue-400 transition-colors">
+                    Compliance
+                  </Link>
                 </li>
               </ul>
             </div>

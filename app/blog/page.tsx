@@ -6,6 +6,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar"
+import {
   Shield,
   Zap,
   AlertTriangle,
@@ -22,7 +33,6 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import Image from "next/image"
 import GridBackgroundDemo from "@/components/GridBackgroundDemo"
 import DecryptedText from "@/components/DecryptedText"
 import FloatingCard from "@/components/FloatingCard"
@@ -89,29 +99,88 @@ const blogPosts = [
 
 export default function BlogPage() {
   const router = useRouter()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState<typeof blogPosts[0] | null>(null)
 
   return (
-    <div className={cn("min-h-screen bg-black text-white relative blog-page", orbitron.variable)} style={{ backgroundColor: '#000000' }}>
+    <div className={cn("min-h-screen bg-black text-white relative blog-page dark", orbitron.variable)} style={{ backgroundColor: '#000000' }}>
       {/* Multiple layers to ensure solid black background */}
       <div className="fixed inset-0 bg-black z-0" style={{ backgroundColor: '#000000' }}></div>
       <div className="absolute inset-0 bg-black z-0" style={{ backgroundColor: '#000000' }}></div>
       <div className="absolute inset-0 bg-gradient-to-b from-black to-black z-0"></div>
       
-      {/* Back to Home Button */}
-      <div className="fixed top-6 left-6 z-50">
-        <Button 
-          variant="outline" 
-          onClick={() => router.push('/')}
-          className="bg-black/90 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300"
-        >
-          <Home className="h-4 w-4 mr-2" />
-          Home
-        </Button>
-      </div>
+      {/* Navbar */}
+      <Navbar>
+        <NavBody>
+          <NavbarLogo />
+          <NavItems 
+            items={[
+              { name: "Home", link: "/" },
+              { name: "About", link: "/#about" },
+              { name: "Services", link: "/#services" },
+              { name: "Pricing", link: "/#pricing" },
+              { name: "Contact", link: "/#contact" },
+            ]} 
+            onItemClick={() => {}}
+          />
+          <div className="flex items-center relative z-[70]">
+            <Button 
+              variant="outline" 
+              onClick={() => router.push('/login')}
+              className="relative z-[70] pointer-events-auto bg-transparent border-blue-500 text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 hover:border-blue-400"
+            >
+              Start
+            </Button>
+          </div>
+        </NavBody>
+
+        <MobileNav>
+          <MobileNavHeader>
+            <NavbarLogo />
+            <MobileNavToggle
+              isOpen={isMenuOpen}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </MobileNavHeader>
+
+          <MobileNavMenu
+            isOpen={isMenuOpen}
+            onClose={() => setIsMenuOpen(false)}
+          >
+            {[
+              { name: "Home", link: "/" },
+              { name: "About", link: "/#about" },
+              { name: "Services", link: "/#services" },
+              { name: "Pricing", link: "/#pricing" },
+              { name: "Contact", link: "/#contact" },
+            ].map((item, idx) => (
+              <a
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300 text-base sm:text-lg py-2 sm:py-3 px-2 sm:px-4 rounded-lg hover:bg-gray-100/10 dark:hover:bg-gray-800/10 transition-colors"
+              >
+                <span className="block">{item.name}</span>
+              </a>
+            ))}
+            <div className="flex w-full justify-center mt-2 sm:mt-4">
+              <Button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  router.push('/login');
+                }}
+                variant="outline"
+                className="pointer-events-auto bg-transparent border-blue-500 text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 hover:border-blue-400"
+              >
+                Start
+              </Button>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
 
       {/* Main Content */}
-      <div className="pt-8 relative z-10">
+      <div className="pt-16 sm:pt-20 relative z-10">
         {!selectedPost ? (
           // Blog List View
           <>
@@ -286,15 +355,13 @@ export default function BlogPage() {
             <div className="space-y-4">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
-                  <Image
-                    src="/logo.jpg"
-                    alt="CYBERRAZOR Logo"
-                    width={16}
-                    height={10}
-                    className="rounded-lg sm:w-5 sm:h-3"
-                    style={{ width: "auto", height: "auto" }}
-                  />
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                    <Shield className="h-5 w-5 text-white" />
+                  </div>
                 </div>
+                <span className="text-xl sm:text-2xl font-bold text-white font-orbitron">
+                  CYBERRAZOR
+                </span>
               </div>
               <p className="text-slate-400 text-sm sm:text-lg font-orbitron font-light">
                 AI-powered threat detection and real-time cyber defense
@@ -331,7 +398,7 @@ export default function BlogPage() {
               <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Trends</h4>
               <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
                 <li>
-                  <Link href="/blog" className="hover:text-blue-400 transition-colors">
+                  <Link href="/blog" className="hover:text-blue-400 transition-colors text-blue-400">
                     Threat Blog
                   </Link>
                 </li>
@@ -348,6 +415,11 @@ export default function BlogPage() {
                 <li>
                   <Link href="/security" className="hover:text-blue-400 transition-colors">
                     Security Protocols
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/compliance" className="hover:text-blue-400 transition-colors">
+                    Compliance
                   </Link>
                 </li>
               </ul>

@@ -827,7 +827,7 @@ export default function CyberRazorLanding() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto items-stretch">
             {[
               {
                 name: "Free Tier",
@@ -842,6 +842,7 @@ export default function CyberRazorLanding() {
                 popular: false,
                 color: "from-blue-500/20 to-cyan-500/20",
                 buttonText: "Get Started",
+                style: { bottom: '500px' },
               },
               {
                 name: "Pro Tier",
@@ -884,12 +885,12 @@ export default function CyberRazorLanding() {
               <FloatingCard
                 key={index}
                 className={cn(
-                  "relative group flex flex-col h-full",
+                  "relative group flex flex-col h-full min-h-[500px]",
                   plan.popular && "border-blue-400/50 scale-105 shadow-2xl shadow-blue-500/20",
                 )}
               >
                 <div className={cn("absolute inset-0 bg-gradient-to-br opacity-50 rounded-lg", plan.color)} />
-                <CardHeader className="text-center pb-8 relative z-10">
+                <CardHeader className="text-center pb-8 relative z-10 flex-shrink-0">
                   <CardTitle className="text-3xl text-white mb-4">
                     <DecryptedText text={plan.name} />
                   </CardTitle>
@@ -902,8 +903,8 @@ export default function CyberRazorLanding() {
                   </div>
                   <CardDescription className="text-slate-300 text-lg break-words hyphens-auto">{plan.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6 relative z-10 flex-1 flex flex-col">
-                  <ul className="space-y-4 flex-1">
+                <CardContent className="relative z-10 flex-1 flex flex-col p-6 min-h-[300px]">
+                  <ul className="space-y-4">
                     {plan.features.map((feature, featureIndex) => (
                       <li
                         key={featureIndex}
@@ -914,7 +915,7 @@ export default function CyberRazorLanding() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-6">
+                  <div className="pt-8 mt-auto">
                     <GlowingButton
                       className={cn("w-full text-lg py-4", plan.popular && "shadow-xl shadow-blue-500/30")}
                       onClick={() => {
@@ -1039,14 +1040,7 @@ export default function CyberRazorLanding() {
             <div className="space-y-4">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
-                  <Image
-                    src="/logo.jpg"
-                    alt="CYBERRAZOR Logo"
-                    width={16}
-                    height={10}
-                    className="rounded-lg sm:w-5 sm:h-3"
-                    style={{ width: "auto", height: "auto" }}
-                  />
+                  <Shield className="h-8 w-8 text-blue-400" />
                 </div>
               </div>
               <p className="text-slate-400 text-sm sm:text-lg font-orbitron font-light">
