@@ -33,7 +33,6 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import GridBackgroundDemo from "@/components/GridBackgroundDemo"
 import DecryptedText from "@/components/DecryptedText"
 import FloatingCard from "@/components/FloatingCard"
 import { Orbitron } from "next/font/google"
@@ -94,6 +93,16 @@ const blogPosts = [
     color: "from-green-500 to-blue-500",
     date: "October 1, 2025",
     readTime: "5 min read",
+  },
+  {
+    id: 6,
+    title: "Zero Trust Architecture: Building Impenetrable Networks",
+    excerpt: "Zero Trust is not just a buzzword—it's a fundamental shift in cybersecurity strategy.",
+    content: "Zero Trust is not just a buzzword—it's a fundamental shift in cybersecurity strategy that assumes no user or device should be trusted by default, regardless of their location.\n\nCyberRazor implements Zero Trust principles through continuous authentication, micro-segmentation, and real-time access verification. Our platform monitors every network transaction, validates user identities using multi-factor authentication, and applies least-privilege access controls.\n\nBy integrating with existing infrastructure through APIs and SIEM tools, CyberRazor creates dynamic security perimeters that adapt to threats in real-time, ensuring that even if one component is compromised, the entire network remains secure.",
+    icon: Shield,
+    color: "from-cyan-500 to-blue-500",
+    date: "October 12, 2025",
+    readTime: "8 min read",
   },
 ]
 
@@ -185,13 +194,12 @@ export default function BlogPage() {
           // Blog List View
           <>
             {/* Hero Section */}
-            <section className="relative py-16 sm:py-20 overflow-hidden">
-              <GridBackgroundDemo className="absolute inset-0">
-                <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="max-w-6xl mx-auto text-center space-y-6 sm:space-y-8">
-                    <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-6 animate-pulse">
-                      🔒 Threat Intelligence Hub
-                    </Badge>
+            <section className="relative py-16 sm:py-20 overflow-hidden bg-black">
+              <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-6xl mx-auto text-center space-y-6 sm:space-y-8">
+                  <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-6 animate-pulse">
+                    🔒 Threat Intelligence Hub
+                  </Badge>
 
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight font-orbitron">
                       <div className="bg-gradient-to-b from-white via-blue-200 to-blue-400 bg-clip-text text-transparent">
@@ -221,7 +229,6 @@ export default function BlogPage() {
                     </div>
                   </div>
                 </div>
-              </GridBackgroundDemo>
             </section>
 
             {/* Latest Blogs Section */}

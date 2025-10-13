@@ -202,7 +202,13 @@ export default function SecurityProtocolsPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
               {protocolItems.map((item, index) => (
-                <div key={index} className="h-full flex flex-col">
+                <div 
+                  key={index} 
+                  className={cn(
+                    "h-full flex flex-col",
+                    index === 4 && "lg:col-span-2 lg:max-w-lg lg:mx-auto"
+                  )}
+                >
                   <FloatingCard className="group overflow-hidden h-full flex flex-col">
                     <div className="p-6 sm:p-8 flex-1 flex flex-col">
                       <div className="flex items-start space-x-4 mb-6">
@@ -254,8 +260,8 @@ export default function SecurityProtocolsPage() {
         {/* Technical Architecture Highlight */}
         <section className="py-16 sm:py-20 bg-gradient-to-b from-black to-slate-900/20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <FloatingCard className="overflow-hidden">
+            <div className="max-w-4xl mx-auto flex justify-center">
+              <FloatingCard className="overflow-hidden w-full">
                 <div className="p-8 sm:p-12">
                   <div className="text-center mb-8">
                     <div className="flex items-center justify-center mb-6">
@@ -267,8 +273,8 @@ export default function SecurityProtocolsPage() {
                       <DecryptedText text="SOAR + AI Integration" />
                     </h3>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center max-w-2xl mx-auto">
+                    <div className="space-y-4 text-center md:text-left">
                       <h4 className="text-lg font-semibold text-blue-400 font-orbitron">Security Orchestration</h4>
                       <ul className="space-y-2 text-slate-300">
                         <li>• Automated threat response</li>
@@ -276,7 +282,7 @@ export default function SecurityProtocolsPage() {
                         <li>• Multi-tool integration</li>
                       </ul>
                     </div>
-                    <div className="space-y-4">
+                    <div className="space-y-4 text-center md:text-left">
                       <h4 className="text-lg font-semibold text-cyan-400 font-orbitron">Machine Learning</h4>
                       <ul className="space-y-2 text-slate-300">
                         <li>• Pattern recognition</li>

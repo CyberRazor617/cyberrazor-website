@@ -1016,7 +1016,7 @@ export default function CyberRazorLanding() {
       </section>
 
       {/* Footer */}
-      <footer className="relative bg-black border-t border-blue-500/20 py-12 overflow-hidden">
+      <footer className="relative bg-black border-t border-blue-500/20 py-8 overflow-hidden">
         {/* Hyperspeed Background */}
         <div className="absolute inset-0 opacity-30">
           <Hyperspeed
@@ -1036,7 +1036,7 @@ export default function CyberRazorLanding() {
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-16">
             <div className="space-y-4">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
@@ -1105,7 +1105,7 @@ export default function CyberRazorLanding() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-blue-500/20 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center">
+          <div className="border-t border-blue-500/20 mt-6 sm:mt-8 pt-4 sm:pt-6 text-center">
             <p className="text-slate-400 text-xs sm:text-sm font-orbitron font-light">
               &copy; {new Date().getFullYear()} CYBERRAZOR. All rights reserved.
             </p>
