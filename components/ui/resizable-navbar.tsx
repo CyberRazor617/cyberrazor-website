@@ -58,7 +58,8 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 100) {
+    // Adjust scroll threshold for better laptop experience
+    if (latest > 80) {
       setVisible(true);
     } else {
       setVisible(false);
@@ -91,7 +92,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
-        width: visible ? "60%" : "100%",
+        width: visible ? "85%" : "100%",
         y: visible ? 20 : 0,
       }}
       transition={{
@@ -100,7 +101,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         damping: 50,
       }}
       style={{
-        minWidth: visible ? "600px" : "800px",
+        minWidth: visible ? "min(85vw, 600px)" : "min(100vw, 1200px)",
       }}
       className={cn(
         "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 sm:px-6 py-3 sm:py-4 lg:flex dark:bg-transparent",
@@ -127,7 +128,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-6 text-lg font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-6",
+        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 xl:space-x-6 text-sm xl:text-lg font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex",
         className,
       )}
     >
@@ -135,7 +136,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-6 py-3 text-neutral-600 dark:text-neutral-300"
+          className="relative px-2 xl:px-6 py-3 text-neutral-600 dark:text-neutral-300 whitespace-nowrap"
           key={`link-${idx}`}
           href={item.link}
         >
@@ -297,16 +298,16 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
       className="relative z-20 mr-2 sm:mr-4 flex items-center space-x-1 sm:space-x-2 px-1 sm:px-2 py-1 text-sm font-normal text-black dark:text-white"
     >
       <motion.img
-        src="/logo.jpg"
+        src="/logo.png"
         alt="CYBERRAZOR Logo"
-        className="rounded-lg"
+        className="rounded-lg object-contain"
         initial={{
-          width: 60,
-          height: 48,
+          width: 120,
+          height: 96,
         }}
         animate={{
-          width: visible ? 40 : 60,
-          height: visible ? 32 : 48,
+          width: visible ? 80 : 120,
+          height: visible ? 64 : 96,
         }}
         transition={{
           type: "spring",
@@ -314,8 +315,10 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
           damping: 50,
         }}
         style={{
-          width: visible ? 40 : 60,
-          height: visible ? 32 : 48,
+          width: visible ? 80 : 120,
+          height: visible ? 64 : 96,
+          minWidth: visible ? 80 : 120,
+          minHeight: visible ? 64 : 96,
         }}
       />
     </a>
@@ -340,7 +343,7 @@ export const NavbarButton = ({
   | React.ComponentPropsWithoutRef<"button">
 )) => {
   const baseStyles =
-    "px-6 py-3 rounded-md bg-white button bg-white text-black text-base font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
+    "px-3 xl:px-6 py-2 xl:py-3 rounded-md bg-white button bg-white text-black text-sm xl:text-base font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center whitespace-nowrap";
 
   const variantStyles = {
     primary:

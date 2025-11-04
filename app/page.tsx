@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import SpotlightCard from "@/components/SpotlightCard"
@@ -190,16 +190,16 @@ scanner = cyberrazor.Scanner(config=config)
 class Scanner:
     def __init__(self, config=None):
         """Initialize the CYBERRAZOR scanner"""
-    
+
     def scan_file(self, file_path, options=None):
         """Scan a file for threats and vulnerabilities"""
-    
+
     def monitor_network(self, interface=None, duration=None):
         """Monitor network traffic for threats"""
-    
+
     def run_cia_audit(self, target, audit_type="full"):
         """Run CIA security audit on target"""
-    
+
     def get_wazuh_alerts(self, time_range="24h"):
         """Retrieve Wazuh security alerts"""
 \`\`\`
@@ -228,10 +228,10 @@ import cyberrazor
 def security_scan():
     scanner = cyberrazor.Scanner()
     results = scanner.scan_file("./src/")
-    
+
     if results.threats_found:
         raise Exception("Security threats detected!")
-    
+
     return results
 \`\`\`
 
@@ -345,10 +345,10 @@ export default function CyberRazorLanding() {
     try {
       // Simulate API call - replace with actual endpoint
       await new Promise(resolve => setTimeout(resolve, 2000))
-      
+
       // Here you would typically send the data to your backend
       console.log("Form submitted:", contactForm)
-      
+
       setSubmitStatus("success")
       setContactForm({
         firstName: "",
@@ -373,21 +373,21 @@ export default function CyberRazorLanding() {
         {/* Desktop Navigation */}
         <NavBody>
           <NavbarLogo />
-          <NavItems 
+          <NavItems
             items={[
               { name: "Home", link: "#home" },
               { name: "About", link: "#about" },
               { name: "Services", link: "#services" },
               { name: "Pricing", link: "#pricing" },
               { name: "Contact", link: "#contact" },
-            ]} 
+            ]}
             onItemClick={() => {
               // Handle navigation if needed
             }}
           />
           <div className="flex items-center relative z-[70]">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => {
                 console.log('Start button clicked!');
                 router.push('/login');
@@ -547,8 +547,8 @@ export default function CyberRazorLanding() {
       </section>
 
       {/* Developer Tools Section */}
-      <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-900/50 to-black">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-900/50 to-black overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
               <DecryptedText text="Developer Arsenal" animateOn="view" />
@@ -558,9 +558,9 @@ export default function CyberRazorLanding() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto relative">
             {/* Python Module */}
-            <FloatingCard className="group overflow-hidden">
+            <FloatingCard className="group overflow-hidden w-full min-h-0">
               <CardHeader className="relative">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="p-4 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300 group-hover:scale-110">
@@ -588,7 +588,7 @@ export default function CyberRazorLanding() {
                   <ul className="space-y-3">
                     {[
                       "Real-time threat scanning",
-                      "Automated vulnerability detection", 
+                      "Automated vulnerability detection",
                       "Security code analysis",
                       "Integration with CI/CD pipelines"
                     ].map((feature, featureIndex) => (
@@ -598,8 +598,8 @@ export default function CyberRazorLanding() {
                       </li>
                     ))}
                   </ul>
-                  <DocumentationModal 
-                    title="Python Module Documentation" 
+                  <DocumentationModal
+                    title="Python Module Documentation"
                     content={pythonModuleDoc}
                   >
                     <GlowingButton variant="secondary" className="w-full">
@@ -611,7 +611,7 @@ export default function CyberRazorLanding() {
             </FloatingCard>
 
             {/* Mobile APK */}
-            <FloatingCard className="group overflow-hidden">
+            <FloatingCard className="group overflow-hidden w-full min-h-0">
               <CardHeader className="relative">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="p-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300 group-hover:scale-110">
@@ -639,7 +639,7 @@ export default function CyberRazorLanding() {
                   <ul className="space-y-3">
                     {[
                       "Real-time mobile threat detection",
-                      "App vulnerability scanning", 
+                      "App vulnerability scanning",
                       "Network security monitoring",
                       "Device security assessment"
                     ].map((feature, featureIndex) => (
@@ -649,8 +649,8 @@ export default function CyberRazorLanding() {
                       </li>
                     ))}
                   </ul>
-                  <GlowingButton 
-                    variant="secondary" 
+                  <GlowingButton
+                    variant="secondary"
                     className="w-full"
                     onClick={() => window.open('/downloads/cyberrazor-mobile.apk', '_blank')}
                   >
@@ -822,12 +822,12 @@ export default function CyberRazorLanding() {
               <DecryptedText text="Defense Packages" animateOn="view" />
             </h2>
             <p className="text-lg sm:text-xl text-slate-300 max-w-4xl mx-auto px-4 break-words hyphens-auto">
-              Choose your cybersecurity solution. From free basic scanning to enterprise-grade AI-powered security, 
+              Choose your cybersecurity solution. From free basic scanning to enterprise-grade AI-powered security,
               we have the perfect package for your needs.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto items-end">
             {[
               {
                 name: "Free Tier",
@@ -842,7 +842,6 @@ export default function CyberRazorLanding() {
                 popular: false,
                 color: "from-blue-500/20 to-cyan-500/20",
                 buttonText: "Get Started",
-                style: { bottom: '500px' },
               },
               {
                 name: "Pro Tier",
@@ -882,15 +881,17 @@ export default function CyberRazorLanding() {
                 buttonText: "Contact Us",
               },
             ].map((plan, index) => (
-              <FloatingCard
+              <Card
                 key={index}
                 className={cn(
-                  "relative group flex flex-col h-full min-h-[500px]",
-                  plan.popular && "border-blue-400/50 scale-105 shadow-2xl shadow-blue-500/20",
+                  "relative group flex flex-col",
+                  plan.popular && "border-blue-400/50 lg:scale-105 shadow-2xl shadow-blue-500/20",
+                  plan.name === "Pro Tier" ? "lg:min-h-[700px]" : "lg:min-h-[600px]"
                 )}
+                style={{ overflow: 'hidden' }}
               >
-                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-50 rounded-lg", plan.color)} />
-                <CardHeader className="text-center pb-8 relative z-10 flex-shrink-0">
+                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-50", plan.color)} />
+                <CardHeader className={cn("text-center pb-6 relative z-10", plan.name === "Pro Tier" && "pt-8")}>
                   <CardTitle className="text-3xl text-white mb-4">
                     <DecryptedText text={plan.name} />
                   </CardTitle>
@@ -903,7 +904,7 @@ export default function CyberRazorLanding() {
                   </div>
                   <CardDescription className="text-slate-300 text-lg break-words hyphens-auto">{plan.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="relative z-10 flex-1 flex flex-col p-6 min-h-[300px]">
+                <CardContent className="relative z-10 overflow-hidden">
                   <ul className="space-y-4">
                     {plan.features.map((feature, featureIndex) => (
                       <li
@@ -915,26 +916,26 @@ export default function CyberRazorLanding() {
                       </li>
                     ))}
                   </ul>
-                  <div className="pt-8 mt-auto">
-                    <GlowingButton
-                      className={cn("w-full text-lg py-4", plan.popular && "shadow-xl shadow-blue-500/30")}
-                      onClick={() => {
-                        if (plan.name === "Enterprise Tier") {
-                          window.location.href = "/appointment";
-                        } else if (plan.name === "Pro Tier") {
-                          setIsPaymentModalOpen(true);
-                        } else if (plan.name === "Free Tier") {
-                          window.location.href = "/login";
-                        } else {
-                          scrollToSection("contact");
-                        }
-                      }}
-                    >
-                      <DecryptedText text={plan.buttonText} />
-                    </GlowingButton>
-                  </div>
                 </CardContent>
-              </FloatingCard>
+                <CardFooter className="relative z-10 mt-auto">
+                  <GlowingButton
+                    className={cn("w-full text-lg py-4", plan.popular && "shadow-xl shadow-blue-500/30")}
+                    onClick={() => {
+                      if (plan.name === "Enterprise Tier") {
+                        window.location.href = "/appointment";
+                      } else if (plan.name === "Pro Tier") {
+                        setIsPaymentModalOpen(true);
+                      } else if (plan.name === "Free Tier") {
+                        window.location.href = "/login";
+                      } else {
+                        scrollToSection("contact");
+                      }
+                    }}
+                  >
+                    <DecryptedText text={plan.buttonText} />
+                  </GlowingButton>
+                </CardFooter>
+              </Card>
             ))}
           </div>
         </div>
@@ -955,7 +956,7 @@ export default function CyberRazorLanding() {
                   Ready to explore how CyberRazor can secure your future? Our team is standing by and eager to help you get started. We commit to responding to all inquiries within 24 hours, ensuring you get the support and answers you need quickly.
                 </p>
               </div>
-              
+
               {/* Social Media Icons */}
               <div className="flex flex-wrap gap-3 sm:gap-4 lg:gap-6">
                 <a href="https://www.instagram.com/cyber_razor123?igsh=N25mZ2p3c211bHpz" target="_blank" rel="noopener noreferrer" className="text-white hover:text-pink-400 transition-colors p-2 hover:bg-pink-400/10 rounded-lg" aria-label="Instagram">
@@ -1040,14 +1041,19 @@ export default function CyberRazorLanding() {
             <div className="space-y-4">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
-                  <Shield className="h-8 w-8 text-blue-400" />
+                  <img
+                    src="/logo.png"
+                    alt="CYBERRAZOR Logo"
+                    className="h-24 w-24 object-contain"
+                    style={{ minHeight: '96px', minWidth: '96px' }}
+                  />
                 </div>
               </div>
               <p className="text-slate-400 text-sm sm:text-lg font-orbitron font-light">
                 AI-powered threat detection and real-time cyber defense
               </p>
             </div>
-            
+
             <div>
               <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Command</h4>
               <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">
@@ -1073,7 +1079,7 @@ export default function CyberRazorLanding() {
                 </li>
               </ul>
             </div>
-            
+
              <div>
               <h4 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 font-orbitron">Trends</h4>
               <ul className="space-y-2 sm:space-y-3 text-slate-400 font-orbitron font-light text-sm sm:text-base">

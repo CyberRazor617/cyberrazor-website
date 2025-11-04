@@ -148,11 +148,11 @@ export default function AppointmentPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 sm:space-x-3">
               <Image
-                src="/logo.jpg"
+                src="/logo.png"
                 alt="CYBERRAZOR Logo"
-                width={28}
-                height={28}
-                className="rounded-lg sm:w-8 sm:h-8"
+                width={580}
+                height={185}
+                className="rounded-lg w-16 h-16 sm:w-20 sm:h-20 object-contain"
               />
             </div>
             <Link

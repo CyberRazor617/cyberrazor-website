@@ -278,18 +278,6 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="rounded border-blue-500/30 bg-slate-800/50 text-blue-500 focus:ring-blue-400"
-                />
-                <Label htmlFor="remember" className="text-slate-300 text-xs sm:text-sm">
-                  Remember me
-                </Label>
-              </div>
             </form>
           </CardContent>
 
@@ -297,7 +285,7 @@ export default function LoginPage() {
             <Button
               type="submit"
               onClick={handleSubmit}
-              disabled={isLoading || !rememberMe || !formData.email || !formData.password}
+              disabled={isLoading || !formData.email || !formData.password}
               className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-2 sm:py-2.5 transition-all duration-200 shadow-lg border border-gray-600 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (

@@ -66,7 +66,7 @@
   body {
     @apply bg-black text-white;
   }
-  
+
   /* Force dark theme colors */
   html, body {
     background-color: #000000 !important;
@@ -167,24 +167,24 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  
+
   .modal-content-wrapper h1 {
     font-size: 1.5rem;
   }
-  
+
   .modal-content-wrapper h2 {
     font-size: 1.25rem;
   }
-  
+
   .modal-content-wrapper h3 {
     font-size: 1.125rem;
   }
-  
+
   .modal-content-wrapper pre {
     font-size: 0.75rem;
     padding: 0.75rem;
   }
-  
+
   .modal-content-wrapper code {
     font-size: 0.75rem;
     padding: 0.125rem 0.25rem;
@@ -210,4 +210,189 @@ button[data-variant="outline"]:hover {
 
 .bg-card {
   background-color: rgba(15, 23, 42, 0.8) !important;
+}
+
+/* Remove any debug highlighting */
+* {
+  outline: none !important;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove any green highlighting from browser tools */
+*::selection {
+  background: rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Disable any debugging borders */
+[style*="border: 2px solid"] {
+  border: none !important;
+}
+
+[style*="outline: 2px solid"] {
+  outline: none !important;
+}
+
+/* Specific class to remove all highlighting */
+.no-highlight,
+.no-highlight *,
+.no-highlight *:hover,
+.no-highlight *:focus,
+.no-highlight *:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+/* Override any browser dev tools highlighting */
+.__web-inspector-hide-shortcut__,
+.___web-inspector-hide-shortcut___,
+*[style*="outline: 2px solid rgb("]  {
+  outline: none !important;
+  border: none !important;
+}
+
+/* Force remove any computed styles that might cause green highlighting */
+.no-highlight * {
+  box-shadow: unset !important;
+  outline: unset !important;
+  border: unset !important;
+}
+
+/* Force button alignment in pricing cards */
+.pricing-card {
+  height: 800px !important;
+  min-height: 800px !important;
+  max-height: 800px !important;
+}
+
+.pricing-button-container {
+  position: absolute !important;
+  bottom: 24px !important;
+  left: 24px !important;
+  right: 24px !important;
+}
+
+.pricing-card .pricing-button-container button {
+  width: 100% !important;
+}
+
+/* Hide scrollbars in pricing section */
+#pricing * {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+#pricing *::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+  width: 0 !important;
+  height: 0 !important;
+}
+
+#pricing .card,
+#pricing [data-card],
+section#pricing * {
+  overflow: hidden !important;
+}
+
+section#pricing [role="group"],
+section#pricing .group {
+  overflow: hidden !important;
+}
+
+/* Fix responsive issues for highlighted sections */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Ensure developer arsenal section doesn't overflow */
+  .developer-arsenal-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    overflow-x: hidden !important;
+  }
+
+  .developer-arsenal-grid {
+    gap: 1rem !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .developer-arsenal-section {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .developer-arsenal-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Ensure floating cards are responsive */
+  .floating-card-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+}
+
+/* Prevent horizontal scroll on all screen sizes */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+.container,
+.max-w-6xl,
+.max-w-7xl {
+  max-width: calc(100vw - 2rem) !important;
+  overflow-x: hidden !important;
+}
+
+/* Fix any elements that might cause horizontal overflow */
+* {
+  box-sizing: border-box !important;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box !important;
+}
+
+/* Ensure grid containers are responsive */
+.grid {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Fix floating card overflow */
+.floating-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* Remove any browser highlighting that might cause visual issues */
+*::-moz-selection {
+  background: rgba(59, 130, 246, 0.3) !important;
+}
+
+*::selection {
+  background: rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Disable browser dev tools highlighting styles */
+[style*="outline: 2px solid lime"],
+[style*="outline: 2px solid rgb(50"],
+[style*="border: 2px solid lime"],
+[style*="border: 2px solid rgb(50"] {
+  outline: none !important;
+  border: none !important;
 }

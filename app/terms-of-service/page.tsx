@@ -253,9 +253,12 @@ export default function TermsOfServicePage() {
             <div className="space-y-4">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                    <Shield className="h-5 w-5 text-white" />
-                  </div>
+                  <img
+                    src="/logo.png"
+                    alt="CYBERRAZOR Logo"
+                    className="h-24 w-24 object-contain"
+                    style={{ minHeight: '96px', minWidth: '96px' }}
+                  />
                 </div>
                 <span className="text-xl sm:text-2xl font-bold text-white font-orbitron">
                   CYBERRAZOR
