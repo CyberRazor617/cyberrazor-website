@@ -4,9 +4,9 @@ import { useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle, X, Wallet, Shield, AlertTriangle } from "lucide-react"
+import { CheckCircle, X, CreditCard, Shield, AlertTriangle } from "lucide-react"
 import { cn } from "@/lib/utils"
-import MetaMaskPayment from "@/components/MetaMaskPayment"
+import StripePayment from "@/components/StripePayment"
 import { Orbitron } from "next/font/google"
 
 const orbitron = Orbitron({
@@ -23,17 +23,17 @@ interface PaymentModalProps {
 
 export default function PaymentModal({ isOpen, onClose, onPaymentSuccess }: PaymentModalProps) {
   const [paymentSuccess, setPaymentSuccess] = useState(false)
-  const [txHash, setTxHash] = useState("")
+  const [sessionId, setSessionId] = useState("")
 
-  const handlePaymentSuccess = (hash: string) => {
-    setTxHash(hash)
+  const handlePaymentSuccess = (id: string) => {
+    setSessionId(id)
     setPaymentSuccess(true)
-    onPaymentSuccess?.(hash)
+    onPaymentSuccess?.(id)
   }
 
   const handleClose = () => {
     setPaymentSuccess(false)
-    setTxHash("")
+    setSessionId("")
     onClose()
   }
 
@@ -65,9 +65,11 @@ export default function PaymentModal({ isOpen, onClose, onPaymentSuccess }: Paym
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 pb-4">
           {/* Payment Section */}
           <div className="space-y-4">
-            <MetaMaskPayment
-              amount="0.1"
-              currency="ETH"
+            <StripePayment
+              amount={200}
+              currency="USD"
+              plan="pro"
+              duration={30}
               onPaymentSuccess={handlePaymentSuccess}
               onPaymentError={(error) => console.error("Payment error:", error)}
             />
@@ -80,20 +82,20 @@ export default function PaymentModal({ isOpen, onClose, onPaymentSuccess }: Paym
                   <h3 className="text-green-400 font-semibold">Payment Successful!</h3>
                 </div>
                 <p className="text-green-200 text-sm mb-3">
-                  Your Pro Tier subscription has been activated
+                  Your Pro Tier subscription has been activated. Check your email for the access token!
                 </p>
                 <div className="space-y-2">
                   <div>
-                    <span className="text-slate-400 text-xs">Transaction Hash:</span>
-                    <p className="text-white font-mono text-xs break-all">{txHash}</p>
+                    <span className="text-slate-400 text-xs">Session ID:</span>
+                    <p className="text-white font-mono text-xs break-all">{sessionId}</p>
                   </div>
                   <Button
-                    onClick={() => window.open(`https://etherscan.io/tx/${txHash}`, '_blank')}
+                    onClick={() => window.open('https://cyberrazorpro.vercel.app', '_blank')}
                     variant="secondary"
                     size="sm"
                     className="w-full"
                   >
-                    View on Etherscan
+                    Go to Pro Portal
                   </Button>
                 </div>
               </div>
@@ -105,17 +107,21 @@ export default function PaymentModal({ isOpen, onClose, onPaymentSuccess }: Paym
             {/* Pricing Info */}
             <div className="bg-slate-800/50 rounded-lg p-4 border border-blue-500/30">
               <div className="flex items-center gap-2 mb-3">
-                <Wallet className="h-5 w-5 text-blue-400" />
-                <h3 className="text-white font-semibold">Pro Tier - $100/month</h3>
+                <CreditCard className="h-5 w-5 text-blue-400" />
+                <h3 className="text-white font-semibold">Pro Tier - $200/month</h3>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400 text-sm">Crypto Payment</span>
-                  <Badge className="bg-green-500/20 text-green-300">0.1 ETH</Badge>
+                  <span className="text-slate-400 text-sm">Payment Method</span>
+                  <Badge className="bg-green-500/20 text-green-300">Credit Card</Badge>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-400 text-sm">Billing</span>
                   <Badge className="bg-blue-500/20 text-blue-300">Monthly</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-400 text-sm">Processing</span>
+                  <Badge className="bg-purple-500/20 text-purple-300">Stripe</Badge>
                 </div>
               </div>
             </div>
@@ -152,9 +158,9 @@ export default function PaymentModal({ isOpen, onClose, onPaymentSuccess }: Paym
                 <h3 className="text-yellow-400 font-semibold text-sm">Security Notice</h3>
               </div>
               <div className="space-y-1 text-slate-300 text-xs">
-                <p>• Always verify the recipient address before sending</p>
-                <p>• Double-check the amount before confirming</p>
-                <p>• Keep your transaction hash for records</p>
+                <p>• Your payment is secured by Stripe</p>
+                <p>• Card details are never stored on our servers</p>
+                <p>• Access token will be sent to your email</p>
                 <p>• Contact support if you need assistance</p>
               </div>
             </div>
